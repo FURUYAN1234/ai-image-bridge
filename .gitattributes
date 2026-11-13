@@ -1,5 +1,5 @@
 * -text
-*.md text eol=lf
+*.md -text
 *.ps1 -text
 *.cmd -text
 *.json -text
