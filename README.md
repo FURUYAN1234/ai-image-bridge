@@ -47,11 +47,11 @@ D -->|Error / エラー| X
 
 The model receives the whole layer. The pink hint indicates an approximate position; it is not a crop or a boundary that forces a body into a narrow shape. Review the whole result because the background and other subjects may also change. / AIにはレイヤー全体を送ります。ピンクの表示は位置の目安で、切り抜き範囲や身体を押し込める枠ではありません。指定外の背景や人物が変わる場合もあるため、結果全体を確認してください。
 
-## Editions and availability / 版と入手先
+## Download and editions / 入手先と版
 
-| Edition / 版 | Intended route / 予定する配布経路 | Status / 状況 |
+| Edition / 版 | Download or route / 入手先と経路 | Status / 状況 |
 | --- | --- | --- |
-| Unofficial SDK build / 非公式SDK版 | New repository `FURUYAN1234/ai-image-bridge` and its release ZIP. / 新規リポジトリとRelease ZIP。 | Publication preparation; repository and Release will become available after publication. / 公開準備中。リポジトリとReleaseは公開後に利用できます。 |
+| Unofficial SDK build / 非公式SDK版 | [Download ZIP / ZIPを取得](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.0/AI-Image-Bridge-0.4.0-Windows-x64.zip) · [Release / リリース](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.0) · [Source / ソース](https://github.com/FURUYAN1234/ai-image-bridge) | Public distribution edition / 一般配布用の非公式SDK版 |
 | CELSYS official SDK build / CELSYS公式SDK版 | Submission to CELSYS for review and the designated distribution route. / CELSYSへの審査申請と指定された配布経路。 | Submission preparation; no claim of approval. / 申請準備中。承認済みではありません。 |
 
 The editions share editing and API features. The public unofficial build uses the independently published SDPlugin interface, not CELSYS SDK files. Do not distribute the official SDK build through the unofficial repository. / 編集機能とAPI処理は共通です。公開用の非公式SDK版は、別途公開されているSDPluginインターフェースを使用し、CELSYSのSDKファイルを含めません。公式SDK版を非公式版のリポジトリへ混ぜて配布しないでください。
@@ -72,7 +72,7 @@ A ChatGPT subscription does not include OpenAI API usage. API requests can incur
 
 
 1. Save open work and exit CLIP STUDIO PAINT. / 作業を保存し、CLIP STUDIO PAINTを終了します。
-2. Download `AI-Image-Bridge-0.4.0-Windows-x64.zip` from the verified release page and extract the entire ZIP into a new folder. / 確認済みのReleaseページから`AI-Image-Bridge-0.4.0-Windows-x64.zip`を取得し、新しいフォルダーへ全体を展開します。
+2. Download `AI-Image-Bridge-0.4.0-Windows-x64.zip` from the [v0.4.0 release](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.0) and extract the entire ZIP into a new folder. / [v0.4.0のRelease](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.0)から`AI-Image-Bridge-0.4.0-Windows-x64.zip`を取得し、新しいフォルダーへ全体を展開します。
 3. Double-click `Install.cmd` and follow its prompts. Keep the bundled license files with the plugin. / `Install.cmd`を実行して案内に従います。同梱のライセンスファイルもプラグインと一緒に配置してください。
 4. Start CLIP STUDIO PAINT and open `Filter → AI Image Bridge (Unofficial SDK) → AI image editor...`. / CLIP STUDIO PAINTを起動し、`フィルター → AI Image Bridge (Unofficial SDK) → AI画像編集...`を開きます。
 5. Enter an API key and use the model-retrieval button. Confirm that image models appear before generating. / APIキーを入力してモデル取得ボタンを押し、画像モデルが表示されてから生成します。
@@ -216,3 +216,4 @@ python .\scripts\verify_package.py ..\release-stage
 ```
 
 Use a new or empty staging directory. The package records every file hash and uses fixed ZIP metadata. / 作業先は新規または空のフォルダーを使います。全ファイルのハッシュを記録し、ZIPのメタデータを固定します。
+
