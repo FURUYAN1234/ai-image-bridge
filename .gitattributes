@@ -1,0 +1,7 @@
+* -text
+*.md text eol=lf
+*.ps1 -text
+*.cmd -text
+*.json -text
+LICENSE -text
+vendor/** -text

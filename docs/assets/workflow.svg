@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="1776" viewBox="0 0 840 1776" role="img" aria-labelledby="aib-flow-title aib-flow-desc">
+<title id="aib-flow-title">AI Image Bridge editing workflow / 編集の流れ</title>
+<desc id="aib-flow-desc">Current normal workflow with host selection cleared: whole raster layer, optional position hint, instruction, API, preview, apply and host Undo. Errors do not apply the result. / ホストの選択範囲を解除した通常の操作。レイヤー全体、任意の位置指定、指示、API、結果確認、適用、ホストUndo。エラー時は適用しません。</desc>
+<defs><marker id="aib-flow-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#087F8C"/></marker></defs>
+<rect x="0" y="0" width="840" height="1776" fill="#F6FAFB"/>
+<text x="40" y="54" font-size="34" fill="#087F8C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">AI Image Bridge</text>
+<text x="40" y="94" font-size="28" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Editing workflow / 編集の流れ</text>
+<text x="40" y="130" font-size="19" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Before opening: clear the host selection. / 開く前にクリスタ側の選択を解除。</text>
+<path data-from="A" data-to="B" d="M 420 302 L 420 331" fill="none" stroke="#087F8C" stroke-width="3" marker-end="url(#aib-flow-arrow)"/>
+<path data-from="B" data-to="C" d="M 420 482 L 420 511" fill="none" stroke="#087F8C" stroke-width="3" marker-end="url(#aib-flow-arrow)"/>
+<path data-from="C" data-to="D" d="M 420 662 L 420 691" fill="none" stroke="#087F8C" stroke-width="3" marker-end="url(#aib-flow-arrow)"/>
+<path data-from="D" data-to="E" data-label="Success / 成功" d="M 420 842 L 420 871" fill="none" stroke="#087F8C" stroke-width="3" marker-end="url(#aib-flow-arrow)"/>
+<text x="438" y="865" font-size="17" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Success / 成功</text>
+<path data-from="E" data-to="F" data-label="Accept / 採用" d="M 420 1022 L 420 1051" fill="none" stroke="#087F8C" stroke-width="3" marker-end="url(#aib-flow-arrow)"/>
+<text x="438" y="1045" font-size="17" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Accept / 採用</text>
+<path data-from="F" data-to="G" d="M 420 1202 L 420 1231" fill="none" stroke="#087F8C" stroke-width="3" marker-end="url(#aib-flow-arrow)"/>
+<path data-from="D" data-to="X" data-label="Error / エラー" d="M 48 770 L 16 770 L 16 1530 L 48 1530" fill="none" stroke="#087F8C" stroke-width="3" marker-end="url(#aib-flow-arrow)"/>
+<text x="40" y="1438" font-size="19" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Error / エラー</text>
+<g data-node="A"><rect x="48" y="160" width="744" height="142" rx="16" fill="white" stroke="#D1DFE4" stroke-width="2"/>
+<text x="70" y="194" font-size="25" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Current color raster layer</text>
+<text x="70" y="226" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">現在のカラーラスターレイヤー</text>
+<text x="70" y="261" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Duplicate to retain the original.</text>
+<text x="70" y="288" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">元を残す場合は先に複製。</text>
+</g>
+<g data-node="B"><rect x="48" y="340" width="744" height="142" rx="16" fill="white" stroke="#D1DFE4" stroke-width="2"/>
+<text x="70" y="374" font-size="25" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Optional position hint</text>
+<text x="70" y="406" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">必要なら位置の目安を指定</text>
+<text x="70" y="441" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Click or draw a stroke inside the plugin.</text>
+<text x="70" y="468" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">プラグイン内でクリック、または線を引く。</text>
+</g>
+<g data-node="C"><rect x="48" y="520" width="744" height="142" rx="16" fill="white" stroke="#D1DFE4" stroke-width="2"/>
+<text x="70" y="554" font-size="25" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Add / Replace / Remove + instruction</text>
+<text x="70" y="586" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">追加・置き換え・消去を選び、指示を書く</text>
+<text x="70" y="621" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Optional: attach one appearance reference.</text>
+<text x="70" y="648" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">必要なら見た目の見本画像を1枚添付。</text>
+</g>
+<g data-node="D"><rect x="48" y="700" width="744" height="142" rx="16" fill="white" stroke="#D1DFE4" stroke-width="2"/>
+<text x="70" y="734" font-size="25" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Generate with OpenAI or Gemini</text>
+<text x="70" y="766" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">OpenAI または Gemini で生成</text>
+<text x="70" y="801" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">The whole layer is always sent as context.</text>
+<text x="70" y="828" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">レイヤー全体を常に参照として送信。</text>
+</g>
+<g data-node="E"><rect x="48" y="880" width="744" height="142" rx="16" fill="white" stroke="#D1DFE4" stroke-width="2"/>
+<text x="70" y="914" font-size="25" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Inspect the complete result</text>
+<text x="70" y="946" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">結果全体を確認する</text>
+<text x="70" y="981" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Compare candidates with Undo / Redo.</text>
+<text x="70" y="1008" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">取り消し／やり直しで候補を比較。</text>
+</g>
+<g data-node="F"><rect x="48" y="1060" width="744" height="142" rx="16" fill="white" stroke="#087F8C" stroke-width="3"/>
+<text x="70" y="1094" font-size="25" fill="#087F8C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Apply the accepted candidate</text>
+<text x="70" y="1126" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">採用する候補を適用</text>
+<text x="70" y="1161" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">The current raster layer is updated.</text>
+<text x="70" y="1188" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">現在のラスターレイヤーへ反映。</text>
+</g>
+<g data-node="G"><rect x="48" y="1240" width="744" height="142" rx="16" fill="white" stroke="#D1DFE4" stroke-width="2"/>
+<text x="70" y="1274" font-size="25" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Host Ctrl+Z can undo the edit</text>
+<text x="70" y="1306" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">クリスタの Ctrl+Z で取り消せる</text>
+<text x="70" y="1341" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Or save the preview as PNG before closing.</text>
+<text x="70" y="1368" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">閉じる前に候補をPNG保存することも可能。</text>
+</g>
+<g data-node="X"><rect x="48" y="1460" width="744" height="142" rx="16" fill="white" stroke="#D1DFE4" stroke-width="2"/>
+<text x="70" y="1494" font-size="25" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">On error: stop and inspect the message</text>
+<text x="70" y="1526" font-size="24" fill="#172D3C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">エラー時は停止し、内容を確認</text>
+<text x="70" y="1561" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">No automatic application; existing candidate retained.</text>
+<text x="70" y="1588" font-size="20" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">自動適用せず、既存候補を保持。</text>
+</g>
+<text x="48" y="1662" font-size="22" fill="#087F8C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Pink is a location hint, never a shape-clipping boundary.</text>
+<text x="48" y="1692" font-size="22" fill="#087F8C" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">ピンクは位置の目安。形を切り抜く境界ではありません。</text>
+<text x="48" y="1738" font-size="19" fill="#536A76" text-anchor="start" font-family="Yu Gothic, Meiryo, sans-serif">Public package: unofficial SDK edition only. / 公開版は非公式SDK版のみ。</text>
+</svg>
