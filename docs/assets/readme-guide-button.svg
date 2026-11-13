@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240" role="img" aria-labelledby="readme-guide-button-title readme-guide-button-desc">
+<title id="readme-guide-button-title">READMEを開く / Open GitHub README</title><desc id="readme-guide-button-desc">Setup &amp; usage / 導入・操作・仕様を確認. Link / リンク先: https://github.com/FURUYAN1234/ai-image-bridge</desc>
+<rect x="3" y="3" width="1194" height="234" rx="25" fill="#eef2ff" stroke="#3e459c" stroke-width="4"/>
+<rect x="30" y="40" width="126" height="160" rx="16" fill="#f1f5f9"/>
+<text x="93" y="116" text-anchor="middle" fill="#172a43" font-size="26" font-weight="700" font-family="Meiryo,sans-serif">DOCS</text>
+<path d="M60 153H127" stroke="#172a43" stroke-width="4"/>
+<text x="188" y="42" fill="#3e459c" font-family="Meiryo,sans-serif" font-size="24" font-weight="400">AI Image Bridge</text>
+<text x="188" y="97" fill="#1e2858" font-family="Meiryo,sans-serif" font-size="39" font-weight="700">READMEを開く</text>
+<text x="188" y="147" fill="#1e2858" font-family="Meiryo,sans-serif" font-size="30" font-weight="400">Open GitHub README</text>
+<text x="188" y="200" fill="#3e459c" font-family="Meiryo,sans-serif" font-size="23" font-weight="400">Setup &amp; usage / 導入・操作・仕様を確認</text>
+<circle cx="1127" cy="122" r="43" fill="#3e459c"/>
+<path d="M1105 122H1147M1132 106L1148 122L1132 138" fill="none" stroke="#eef2ff" stroke-width="5"/>
+</svg>

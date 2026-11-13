@@ -6,6 +6,12 @@ Edit the current CLIP STUDIO PAINT raster layer with OpenAI or Gemini image APIs
 
 No local GPU model, Python, or ComfyUI is required. Bring your own API key with paid image API access. / ローカルGPUモデル、Python、ComfyUIは不要です。画像APIを利用できるご自身のAPIキーと、API利用料金が必要です。
 
+Click an image button to open the download or guide. / 画像ボタンをクリックすると、ダウンロードや案内を開きます。
+
+[![ダウンロード / Download Windows x64 ZIP — AI Image Bridge — 0.4.0 · Unofficial SDK / 非公式SDK版](docs/assets/download-button.png)](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.0/AI-Image-Bridge-0.4.0-Windows-x64.zip)
+
+[![note記事を読む / Read the note article — AI Image Bridge — Features & examples / 特徴・作例・始め方](docs/assets/note-article-button.png)](https://note.com/happy_duck780/n/n6747a089fce7)
+
 ## Overview / できること
 
 ![Editing workflow / 編集の流れ](docs/assets/workflow.png)
@@ -164,6 +170,12 @@ The software license does not license generated images. The author claims no rig
 This is an independent project and does not claim CELSYS approval, endorsement, or universal legal clearance. / 独立したプロジェクトであり、CELSYSの承認や推奨、あらゆる利用の適法性を表明するものではありません。
 
 ## PDF manuals / PDFマニュアル
+
+[![プラグインマニュアル / Plugin manual — AI Image Bridge — Open PDF · English / 日本語](docs/assets/plugin-manual-button.png)](https://github.com/FURUYAN1234/ai-image-bridge/blob/main/docs/manuals/AI-Image-Bridge-Manual.pdf)
+
+[![OpenAI APIの取得・設定 / OpenAI API setup guide — AI Image Bridge — Open PDF · English / 日本語](docs/assets/openai-api-guide-button.png)](https://github.com/FURUYAN1234/ai-image-bridge/blob/main/docs/manuals/OpenAI-API-Setup.pdf)
+
+[![Gemini APIの取得・設定 / Gemini API setup guide — AI Image Bridge — Open PDF · English / 日本語](docs/assets/gemini-api-guide-button.png)](https://github.com/FURUYAN1234/ai-image-bridge/blob/main/docs/manuals/Gemini-API-Setup.pdf)
 
 Use the top-right Manual button and choose one of the three manuals. The installed PDF opens in your default PDF viewer. / 右上のマニュアルボタンから3冊のいずれかを選ぶと、インストール済みPDFを既定のビューアーで開きます。
 

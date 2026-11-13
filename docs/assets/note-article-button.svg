@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240" role="img" aria-labelledby="note-article-button-title note-article-button-desc">
+<title id="note-article-button-title">note記事を読む / Read the note article</title><desc id="note-article-button-desc">Features &amp; examples / 特徴・作例・始め方. Link / リンク先: https://note.com/happy_duck780/n/n6747a089fce7</desc>
+<rect x="3" y="3" width="1194" height="234" rx="25" fill="#fff5e9" stroke="#a84423" stroke-width="4"/>
+<rect x="30" y="40" width="126" height="160" rx="16" fill="#f1f5f9"/>
+<text x="93" y="116" text-anchor="middle" fill="#172a43" font-size="26" font-weight="700" font-family="Meiryo,sans-serif">NOTE</text>
+<path d="M60 153H127" stroke="#172a43" stroke-width="4"/>
+<text x="188" y="42" fill="#a84423" font-family="Meiryo,sans-serif" font-size="24" font-weight="400">AI Image Bridge</text>
+<text x="188" y="97" fill="#542718" font-family="Meiryo,sans-serif" font-size="39" font-weight="700">note記事を読む</text>
+<text x="188" y="147" fill="#542718" font-family="Meiryo,sans-serif" font-size="30" font-weight="400">Read the note article</text>
+<text x="188" y="200" fill="#a84423" font-family="Meiryo,sans-serif" font-size="23" font-weight="400">Features &amp; examples / 特徴・作例・始め方</text>
+<circle cx="1127" cy="122" r="43" fill="#a84423"/>
+<path d="M1105 122H1147M1132 106L1148 122L1132 138" fill="none" stroke="#fff5e9" stroke-width="5"/>
+</svg>
