@@ -58,7 +58,7 @@ The model receives the whole layer. The pink hint indicates an approximate posit
 | Edition / 版 | Download or route / 入手先と経路 | Status / 状況 |
 | --- | --- | --- |
 | Unofficial SDK build / 非公式SDK版 | [Download ZIP / ZIPを取得](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.0/AI-Image-Bridge-0.4.0-Windows-x64.zip) · [Release / リリース](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.0) · [Source / ソース](https://github.com/FURUYAN1234/ai-image-bridge) | Public distribution edition / 一般配布用の非公式SDK版 |
-| CELSYS official SDK build / CELSYS公式SDK版 | Submission to CELSYS for review and the designated distribution route. / CELSYSへの審査申請と指定された配布経路。 | Submission preparation; no claim of approval. / 申請準備中。承認済みではありません。 |
+| CELSYS official SDK build / CELSYS公式SDK版 | Submission to CELSYS for review and the designated distribution route. / CELSYSへの審査申請と指定された配布経路。 | Submitted to CELSYS on 2026-11-14; awaiting review and distribution guidance. / 2026年11月14日にCELSYSへ申請済み。審査と配布条件の回答待ちです。 |
 
 The editions share editing and API features. The public unofficial build uses the independently published SDPlugin interface, not CELSYS SDK files. Do not distribute the official SDK build through the unofficial repository. / 編集機能とAPI処理は共通です。公開用の非公式SDK版は、別途公開されているSDPluginインターフェースを使用し、CELSYSのSDKファイルを含めません。公式SDK版を非公式版のリポジトリへ混ぜて配布しないでください。
 
@@ -160,6 +160,12 @@ The following are earlier 0.3.x editing-path results, separate from the 0.4.0 ho
 | OpenAI Sunburst, max/high, Remove / 消去 | 97.32 s / 秒 | Man and shadow removed; girl retained. / 男性と影を消去し、女の子を保持。 |
 
 Times cover encoding, communication, generation, decoding, and UI receipt after Generate, without retries. They are examples, not speed guarantees. Earlier exact-pixel checks confirmed candidate application and host Undo; 0.3.1 had 98 core assertions. / 時間は生成操作後のエンコード、通信、生成、デコード、画面受信までを含み、再試行はありません。速度保証ではありません。従来の全画素比較では候補の適用とホストUndoを確認し、0.3.1のコア検査は98項目でした。
+
+## Interface source and acknowledgments / インターフェースの参照元・謝辞
+
+The unofficial SDK build uses the ABI interface declarations in `FilterPlugIn.h`, obtained from [ComfyUIPlugin by Hiiragi (potechitakusan)](https://github.com/potechitakusan/ComfyUIPlugin) at commit `37101fe5c023e3759e8e3158a706b85cda502cf2`. That interface originates from [AonekoSS/SDPlugin](https://github.com/AonekoSS/SDPlugin). Thank you to both projects for publishing this work. / 非公式SDK版は、柊さん（potechitakusan）の[ComfyUIPlugin](https://github.com/potechitakusan/ComfyUIPlugin)の上記コミットから取得した `FilterPlugIn.h` のABIインターフェース宣言を利用しています。その由来は[AonekoSS/SDPlugin](https://github.com/AonekoSS/SDPlugin)です。両プロジェクトの公開に感謝します。
+
+The reused interface retains its Unlicense. AI Image Bridge's cloud API integration and editing UI are separate application code; this does not claim endorsement from the upstream authors. See [third-party notices](THIRD_PARTY_NOTICES.md) for provenance and bundled licenses. / 利用部分には元のUnlicenseを保持しています。AI Image BridgeのクラウドAPI接続と編集画面は別途実装したもので、参照元作者の承認・推奨を意味しません。出典と同梱ライセンスは[第三者ライセンス表記](THIRD_PARTY_NOTICES.md)をご覧ください。
 
 ## Licenses and generated images / ライセンスと生成画像
 
