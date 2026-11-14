@@ -1,4 +1,4 @@
-# AI Image Bridge 0.4.1: Plugin manual / プラグインマニュアル
+# AI Image Bridge 0.4.2: Plugin manual / プラグインマニュアル
 
 ## Before installing / 導入前
 

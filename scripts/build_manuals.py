@@ -8,9 +8,10 @@ from reportlab.lib.enums import TA_LEFT
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image, KeepTogether, Flowable
 from reportlab.lib.pagesizes import A4
 ROOT=Path(__file__).resolve().parents[1]
+VERSION=(ROOT/'VERSION').read_text(encoding='utf-8').strip()
 OUT=Path(os.environ.get('BRIDGE_MANUAL_OUTPUT', str(ROOT/'docs/manuals'))); OUT.mkdir(parents=True,exist_ok=True)
 PRE=OUT/'renders'; PRE.mkdir(exist_ok=True)
-font='/mnt/c/Windows/Fonts/msgothic.ttc'
+font=str(Path('C:/Windows/Fonts/msgothic.ttc') if Path('C:/Windows/Fonts/msgothic.ttc').exists() else Path('/mnt/c/Windows/Fonts/msgothic.ttc'))
 pdfmetrics.registerFont(TTFont('JP',font,subfontIndex=0))
 pdfmetrics.registerFontFamily('JP',normal='JP',bold='JP',italic='JP',boldItalic='JP')
 INK=colors.HexColor('#172D3C'); ACC=colors.HexColor('#087F8C'); LIGHT=colors.HexColor('#EEF5F6')
@@ -39,7 +40,7 @@ class Workflow(Flowable):
             if i<2: c.setStrokeColor(ACC); c.line(x+w+3,42,x+w+15,42); c.line(x+w+11,46,x+w+15,42); c.line(x+w+11,38,x+w+15,42)
 def footer(c,d):
     c.setStrokeColor(colors.HexColor('#D8E3E6')); c.line(42,39,A4[0]-42,39)
-    c.setFont('JP',7); c.setFillColor(INK); c.drawString(42,27,'AI Image Bridge 0.4.1  |  English / 日本語'); c.drawRightString(A4[0]-42,27,str(d.page))
+    c.setFont('JP',7); c.setFillColor(INK); c.drawString(42,27,f'AI Image Bridge {VERSION}  |  English / 日本語'); c.drawRightString(A4[0]-42,27,str(d.page))
 def convert(src,name,subtitle,steps):
     lines=(ROOT/'docs'/src).read_text(encoding='utf-8-sig').splitlines(); title=lines[0].lstrip('# ')
     headings=[x[3:] for x in lines if x.startswith('## ')]
@@ -87,7 +88,7 @@ def convert(src,name,subtitle,steps):
         i+=1
     if src=='manual-plugin.md':
         images=[('natural-applied.png','Add a person / 人物を追加'),('simple-replace-candidate.png','Replace with a dog / 犬へ置き換え'),('simple-remove-candidate.png','Remove a person / 人物を消去')]
-        story.extend([PageBreak(),Paragraph('Editing examples / 編集例',styles['h2']),Paragraph('Accepted examples from the 0.3.x verification workflow; these illustrate editing behavior and do not substitute for 0.4.1 release validation. / 0.3.xの検証で採用した実例です。編集の動きを示すもので、0.4.1配布版の検証を代用しません。',styles['body'])])
+        story.extend([PageBreak(),Paragraph('Editing examples / 編集例',styles['h2']),Paragraph('Accepted examples from the 0.3.x verification workflow; these illustrate editing behavior and do not substitute for current release validation. / 0.3.xの検証で採用した実例です。編集の動きを示すもので、現行配布版の検証を代用しません。',styles['body'])])
         for f,cap in images:
             p=ROOT/'docs/assets/examples'/f
             if p.exists():
