@@ -1,4 +1,4 @@
-# AI Image Bridge 0.4.0
+# AI Image Bridge 0.4.1
 
 ![AI Image Bridge](docs/assets/cover.png)
 
@@ -8,7 +8,7 @@ No local GPU model, Python, or ComfyUI is required. Bring your own API key with 
 
 Click an image button to open the download or guide. / 画像ボタンをクリックすると、ダウンロードや案内を開きます。
 
-[![ダウンロード / Download Windows x64 ZIP — AI Image Bridge — 0.4.0 · Unofficial SDK / 非公式SDK版](docs/assets/download-button.png)](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.0/AI-Image-Bridge-0.4.0-Windows-x64.zip)
+[![ダウンロード / Download Windows x64 ZIP — AI Image Bridge — 0.4.1 · Unofficial SDK / 非公式SDK版](docs/assets/download-button.png)](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.1/AI-Image-Bridge-0.4.1-Windows-x64.zip)
 
 [![note記事を読む / Read the note article — AI Image Bridge — Features & examples / 特徴・作例・始め方](docs/assets/note-article-button.png)](https://note.com/happy_duck780/n/n6747a089fce7)
 
@@ -57,7 +57,7 @@ The model receives the whole layer. The pink hint indicates an approximate posit
 
 | Edition / 版 | Download or route / 入手先と経路 | Status / 状況 |
 | --- | --- | --- |
-| Unofficial SDK build / 非公式SDK版 | [Download ZIP / ZIPを取得](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.0/AI-Image-Bridge-0.4.0-Windows-x64.zip) · [Release / リリース](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.0) · [Source / ソース](https://github.com/FURUYAN1234/ai-image-bridge) | Public distribution edition / 一般配布用の非公式SDK版 |
+| Unofficial SDK build / 非公式SDK版 | [Download ZIP / ZIPを取得](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.1/AI-Image-Bridge-0.4.1-Windows-x64.zip) · [Release / リリース](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.1) · [Source / ソース](https://github.com/FURUYAN1234/ai-image-bridge) | Public distribution edition / 一般配布用の非公式SDK版 |
 | CELSYS official SDK build / CELSYS公式SDK版 | Submission to CELSYS for review and the designated distribution route. / CELSYSへの審査申請と指定された配布経路。 | Submitted to CELSYS on 2026-11-14; awaiting review and distribution guidance. / 2026年11月14日にCELSYSへ申請済み。審査と配布条件の回答待ちです。 |
 
 The editions share editing and API features. The public unofficial build uses the independently published SDPlugin interface, not CELSYS SDK files. Do not distribute the official SDK build through the unofficial repository. / 編集機能とAPI処理は共通です。公開用の非公式SDK版は、別途公開されているSDPluginインターフェースを使用し、CELSYSのSDKファイルを含めません。公式SDK版を非公式版のリポジトリへ混ぜて配布しないでください。
@@ -78,7 +78,7 @@ A ChatGPT subscription does not include OpenAI API usage. API requests can incur
 
 
 1. Save open work and exit CLIP STUDIO PAINT. / 作業を保存し、CLIP STUDIO PAINTを終了します。
-2. Download `AI-Image-Bridge-0.4.0-Windows-x64.zip` from the [v0.4.0 release](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.0) and extract the entire ZIP into a new folder. / [v0.4.0のRelease](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.0)から`AI-Image-Bridge-0.4.0-Windows-x64.zip`を取得し、新しいフォルダーへ全体を展開します。
+2. Download `AI-Image-Bridge-0.4.1-Windows-x64.zip` from the [v0.4.1 release](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.1) and extract the entire ZIP into a new folder. / [v0.4.0のRelease](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.1)から`AI-Image-Bridge-0.4.1-Windows-x64.zip`を取得し、新しいフォルダーへ全体を展開します。
 3. Double-click `Install.cmd` and follow its prompts. Keep the bundled license files with the plugin. / `Install.cmd`を実行して案内に従います。同梱のライセンスファイルもプラグインと一緒に配置してください。
 4. Start CLIP STUDIO PAINT and open `Filter → AI Image Bridge (Unofficial SDK) → AI image editor...`. / CLIP STUDIO PAINTを起動し、`フィルター → AI Image Bridge (Unofficial SDK) → AI画像編集...`を開きます。
 5. Enter an API key and use the model-retrieval button. Confirm that image models appear before generating. / APIキーを入力してモデル取得ボタンを押し、画像モデルが表示されてから生成します。
@@ -229,7 +229,7 @@ The build script also builds and runs the ABI tests. The resulting plugin is `bu
 For a reproducible offline ZIP after building, use Python 3's standard library only: / ビルド後のオフラインZIP作成には、Python 3の標準ライブラリだけを使います。
 
 ```powershell
-python .\scripts\package_release.py --stage ..\release-stage --zip ..\AI-Image-Bridge-0.4.0-Windows-x64.zip
+python .\scripts\package_release.py --stage ..\release-stage --zip ..\AI-Image-Bridge-0.4.1-Windows-x64.zip
 python .\scripts\verify_package.py ..\release-stage
 ```
 
@@ -257,3 +257,9 @@ Use a new or empty staging directory. The package records every file hash and us
 | Japanese Narration / 日本語おまかせナレーション | Voice consultation and speech synthesis / 声の相談・音声生成 | [GitHub](https://github.com/FURUYAN1234/ComfyUI-Local-Narration-Japanese) · [Guide / 解説](https://note.com/happy_duck780/n/nda7ed302d544) |
 | MangaScreen JP / 日本語操作・原寸出力対応版 | Manga lines, fills and screentones / 漫画の線画・ベタ・網点処理 | [GitHub](https://github.com/FURUYAN1234/ComfyUI-MangaScreen-JP) · [Guide / 解説](https://note.com/happy_duck780/n/n5c89a250fb82) |
 | Codex Usage / Codex 残量 | Windows usage overlay / Windows用の利用枠表示ツール | [GitHub](https://github.com/FURUYAN1234/codex-usage-overlay) |
+
+## Emergency stop in 0.4.1 / 0.4.1の緊急停止
+
+The active **Emergency stop** button now has a red background and white text. It stops local communication during model lookup or image generation, immediately becomes disabled when pressed, and remains unavailable while idle. Inputs and earlier candidates remain intact. Submitted requests can still incur provider charges. / モデル取得・画像生成中の「緊急停止」を赤地・白文字にしました。押すとローカル通信を中止し、即座に非活性になります。待機中も操作できません。入力と以前の候補を保持します。送信済み処理は提供元で課金される場合があります。
+
+After API connection, emergency stop is visible at the top right (hidden during initial API setup), with readable dark-red disabled styling; native frame dimensions are retained when fitting a small work area. / 初期API設定中は緊急停止を隠し、接続後は画面右上に表示し、非活性時も暗赤色と白文字で読めるようにしました。小さな作業領域への縮小ではネイティブの枠・タイトルバーの実寸を考慮します。

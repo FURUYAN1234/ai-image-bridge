@@ -1,4 +1,4 @@
-# AI Image Bridge 0.4.0: Gemini API setup / Gemini API準備マニュアル
+# AI Image Bridge 0.4.1: Gemini API setup / Gemini API準備マニュアル
 
 Checked 2026-11-14. Google account availability, billing, and model access vary by account and region. / 2026年11月14日確認。アカウントや地域によって利用可否、課金、モデルへのアクセスが異なります。
 

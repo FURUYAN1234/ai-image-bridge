@@ -1,5 +1,5 @@
 """Strict package verifier: missing, changed, extra files and unsafe names fail."""
-import argparse, hashlib, json
+import argparse, hashlib, json, re
 from pathlib import Path
 
 def digest(path):
@@ -16,11 +16,15 @@ def verify(root):
         if Path(name).is_absolute() or '..' in Path(name).parts or '\\' in name: raise ValueError('Unsafe manifest path')
         if digest(actual[name])!=want: raise ValueError(f'Checksum mismatch: {name}')
     manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8-sig'))
-    if manifest['name']!='AI Image Bridge' or manifest['version']!='0.4.0' or manifest['variant'] not in ('unofficial','official'): raise ValueError('Invalid identity')
+    if manifest['name']!='AI Image Bridge' or manifest['version']!='0.4.1' or manifest['variant'] not in ('unofficial','official'): raise ValueError('Invalid identity')
     mf=manifest['files']
     if set(mf)!=set(actual)-{'manifest.json','SHA256SUMS.json'}: raise ValueError('Plugin manifest inventory mismatch')
     if any(digest(actual[n])!=v for n,v in mf.items()): raise ValueError('Plugin manifest checksum mismatch')
     if manifest['pluginSha256']!=mf['AIImageBridge.cpm']: raise ValueError('Plugin declarations disagree')
+    readme=(root/'README.md').read_text(encoding='utf-8-sig')
+    for image in re.findall(r'!\[[^\]]*\]\(([^)]+)\)',readme):
+        if not image.startswith(('https://','http://')) and not (root/image).is_file():
+            raise ValueError(f'Missing README image: {image}')
     return {'variant':manifest['variant'],'files':len(actual),'pluginSha256':manifest['pluginSha256']}
 
 if __name__=='__main__':

@@ -5,6 +5,12 @@
 #include <algorithm>
 #include <cmath>
 namespace cloud {
+// Only the client area scales; title bar and frame remain native DPI dimensions.
+inline double fitClientScale(int cw,int ch,int workW,int workH,int frameW,int frameH){
+    if(cw<=0||ch<=0)return 1.0;
+    return std::max(0.01,std::min({1.0,(double)std::max(1,workW-40-frameW)/cw,(double)std::max(1,workH-40-frameH)/ch}));
+}
+
 inline const wchar_t* promptPlaceholder(int operation){
     if(operation==1)return cloud::tr(L"例：この辺の男性を、手を振る女の子に置き換えて。\r\n残したい服装・ポーズ・背景も指定できます。");
     if(operation==2)return cloud::tr(L"例：この辺の人物と影を消して、背景を自然につないで。\r\n位置を指定しない場合は、消す対象を文章で示してください。");
@@ -54,3 +60,6 @@ struct SessionState {
 using ReadInput=std::function<Tile(int)>;
 bool showEditor(HINSTANCE instance,HWND owner,SessionState& session,const ReadInput& readInput,bool alphaLocked,Tile& output,const std::wstring& logPath);
 }
+
+namespace cloud { inline bool emergencyStopVisible(bool workReady,bool busy){return workReady||busy;}
+inline bool emergencyStopEnabled(bool busy, bool cancelled) { return busy && !cancelled; } }

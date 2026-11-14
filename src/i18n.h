@@ -50,7 +50,7 @@ inline const Translation translations[]={
     {L"中止処理中…",L"Cancelling..."},
     {L"モデル取得中… ",L"Fetching models... "},
     {L"生成中… ",L"Generating... "},
-    {L"秒。中止ボタンで通信を止められます。",L" s. Use Cancel request to stop waiting."},
+    {L"秒。中止ボタンで通信を止められます。",L" s. Use Emergency stop to stop waiting."},
     {L"モデル取得を中止しました。入力したキーと既存候補は保持しています。",L"Model lookup cancelled. Your key and existing candidate are retained."},
     {L" 入力したキーは保持しています。",L" Your entered key is retained."},
     {L"接続成功。このAPIには対応画像モデルが見つかりませんでした。",L"Connected, but no supported image models were found for this key."},
@@ -142,7 +142,7 @@ inline const Translation translations[]={
     {L"モデル一覧のページ情報が循環しています。",L"The model-list pagination contains a cycle."},
     {L"モデル一覧のページ数が上限を超えました。取得を完了できませんでした。",L"The model-list page limit was exceeded. Lookup was not completed."},
     {L"ファイルを保存できませんでした。",L"Could not save the file."},
-    {L"AI Image Bridge 0.4.0",L"AI Image Bridge 0.4.0"},
+    {L"AI Image Bridge 0.4.1",L"AI Image Bridge 0.4.1"},
     {L"選ぶ。指示する。絵に戻す。",L"Point. Describe. Edit with AI."},
     {L"APIキー",L"API key"},
     {L"キーは接続先ごとにメモリ内で保持。\n切替後も再入力不要。PCへ保存しません。\nクリスタ終了時に破棄（次回は再入力）。",L"Keys stay in memory for each provider.\nNo re-entry when switching. Not saved to disk.\nDiscarded when the host exits."},
@@ -163,7 +163,7 @@ inline const Translation translations[]={
     {L"やり直し",L"Redo"},
     {L"閉じる（適用しない）",L"Close without applying"},
     {L"PNG保存",L"Save PNG"},
-    {L"通信を中止",L"Cancel request"},
+    {L"緊急停止",L"Emergency stop"},
     {L"生成する（API課金）",L"Generate (API charge)"},
 };
 inline const wchar_t* tr(const wchar_t* text){if(uiLanguage)for(const auto& t:translations)if(wcscmp(text,t.ja)==0)return t.en;return text;}

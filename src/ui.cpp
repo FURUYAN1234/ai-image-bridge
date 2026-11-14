@@ -10,7 +10,7 @@
 
 namespace cloud {
 enum {ID_PROVIDER=101,ID_MODEL,ID_KEY,ID_PROMPT,ID_QUALITY,ID_COMPLEXITY,ID_MODE,ID_GENERATE,ID_APPLY,ID_SAVE,ID_CANCEL_RUN,ID_SOURCE,ID_RESULT,ID_STATUS,ID_CLEAR_KEY,ID_CONTEXT,ID_REF_ADD,ID_REF_CLEAR,ID_REF_NAME,ID_GUIDE,ID_BASE,ID_PREVIOUS,ID_KEY_NOTE,ID_SOURCE_INFO,ID_RESULT_INFO,ID_SCOPE,ID_QUALITY_LABEL,ID_REF_PREVIEW,ID_LAYER_NOTE,ID_CONNECT,ID_REDO,ID_CLOSE,ID_SECURITY,ID_MODE_NOTE,ID_LANGUAGE};
-namespace color {constexpr COLORREF background=RGB(30,34,40),panel=RGB(38,43,51),input=RGB(25,29,35),text=RGB(234,240,246),muted=RGB(155,169,188),accent=RGB(106,155,255),border=RGB(62,73,89),disabled=RGB(92,101,115);}
+namespace color {constexpr COLORREF background=RGB(30,34,40),panel=RGB(38,43,51),input=RGB(25,29,35),text=RGB(234,240,246),muted=RGB(155,169,188),accent=RGB(106,155,255),border=RGB(62,73,89),disabled=RGB(92,101,115),danger=RGB(185,28,28),dangerPressed=RGB(153,27,27);}
 struct Editor {
     HWND hwnd{};SessionState& session;const ReadInput& readInput;bool alphaLocked;Tile& output;std::wstring logPath;
     Tile input;Bytes positionHint;bool drawing=false;int lastX=0,lastY=0;WNDPROC sourceProc{},promptProc{};CandidateHistory history;Image sourcePreview,referencePreview,requestImage;
@@ -42,7 +42,7 @@ static void refreshControls(Editor* e){HWND h=e->hwnd;bool idle=!e->busy;
     EnableWindow(GetDlgItem(h,ID_APPLY),idle&&!e->candidate().empty());EnableWindow(GetDlgItem(h,ID_SAVE),idle&&!e->candidate().empty());
     EnableWindow(GetDlgItem(h,ID_PREVIOUS),idle&&e->history.canUndo());EnableWindow(GetDlgItem(h,ID_REDO),idle&&e->history.canRedo());
     if(!canContinue(e))SendDlgItemMessageW(h,ID_BASE,CB_SETCURSEL,0,0);EnableWindow(GetDlgItem(h,ID_BASE),idle&&canContinue(e));
-    ShowWindow(GetDlgItem(h,ID_CANCEL_RUN),e->busy?SW_SHOW:SW_HIDE);ShowWindow(GetDlgItem(h,ID_SAVE),e->busy?SW_HIDE:SW_SHOW);EnableWindow(GetDlgItem(h,ID_CANCEL_RUN),e->busy);
+    ShowWindow(GetDlgItem(h,ID_CANCEL_RUN),emergencyStopVisible(connected(e),e->busy)?SW_SHOW:SW_HIDE);ShowWindow(GetDlgItem(h,ID_SAVE),SW_SHOW);EnableWindow(GetDlgItem(h,ID_CANCEL_RUN),emergencyStopEnabled(e->busy,e->cancel.cancelled));
     SetDlgItemTextW(h,ID_APPLY,e->input.selected&&e->candidate().natural?cloud::tr(L"選択解除後に適用…"):cloud::tr(L"適用"));
     SetDlgItemTextW(h,ID_SCOPE,e->input.selected?cloud::tr(L"クリスタの選択が残っています。全体への適用時は選択解除が必要です。"):cloud::tr(L"形・背丈・背景とのつながりは自然に。位置指定は任意です。"));
     SetDlgItemTextW(h,ID_MODE_NOTE,cloud::tr(L"元画像をクリック・なぞって「だいたいこの辺」を指定できます。"));EnableWindow(GetDlgItem(h,ID_GUIDE),idle&&!e->positionHint.empty());InvalidateRect(GetDlgItem(h,ID_PROMPT),nullptr,TRUE);
@@ -62,11 +62,11 @@ static void applyLanguage(Editor* e){HWND h=e->hwnd;int base=selection(h,ID_BASE
 #else
     constexpr auto variant=L"Unofficial SDK";
 #endif
-    SetWindowTextW(h,(std::wstring(L"AI Image Bridge 0.4.0 | ")+variant).c_str());
+    SetWindowTextW(h,(std::wstring(L"AI Image Bridge 0.4.1 | ")+variant).c_str());
     SetDlgItemTextW(h,136,uiLanguage?L"Manuals":L"マニュアル");
     SetDlgItemTextW(h,201,tr(L"AI Image Bridge"));
     SetDlgItemTextW(h,202,tr(L"選ぶ。指示する。絵に戻す。"));
-    SetDlgItemTextW(h,203,(std::wstring(L"0.4.0 / ")+variant).c_str());
+    SetDlgItemTextW(h,203,(std::wstring(L"0.4.1 / ")+variant).c_str());
     SetDlgItemTextW(h,301,tr(L"APIキー"));
     SetDlgItemTextW(h,130,tr(L"送信・モデル取得"));
     SetDlgItemTextW(h,115,tr(L"消去"));
@@ -89,7 +89,7 @@ static void applyLanguage(Editor* e){HWND h=e->hwnd;int base=selection(h,ID_BASE
     SetDlgItemTextW(h,131,tr(L"やり直し"));
     SetDlgItemTextW(h,132,tr(L"閉じる（適用しない）"));
     SetDlgItemTextW(h,110,tr(L"PNG保存"));
-    SetDlgItemTextW(h,111,tr(L"通信を中止"));
+    SetDlgItemTextW(h,111,tr(L"緊急停止"));
     SetDlgItemTextW(h,109,tr(L"適用"));
     SetDlgItemTextW(h,108,tr(L"生成する（API課金）"));
 
@@ -101,7 +101,7 @@ static void applyLanguage(Editor* e){HWND h=e->hwnd;int base=selection(h,ID_BASE
 static void saveFields(Editor* e){auto& s=e->session;HWND h=e->hwnd;s.keys[s.provider]=getText(h,ID_KEY);s.model[s.provider]=selection(h,ID_MODEL);s.prompt=getText(h,ID_PROMPT);s.mode=selection(h,ID_MODE);}
 static void appendLog(Editor* e,const char* event){try{SYSTEMTIME t{};GetSystemTime(&t);char date[40];sprintf_s(date,"%04u-%02u-%02uT%02u:%02u:%02uZ",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond);
     bool applied=std::string(event)=="apply";const auto& tile=applied?e->candidate().tile:e->input;
-    Json j={{"utc",date},{"version","0.4.0"},{"runId",applied?e->candidate().runId:e->runId},{"event",event},{"provider",(applied?e->candidate().provider:e->settings.provider)==0?"openai":"gemini"},{"model",applied?e->candidate().model:e->settings.model},{"http",applied?200:e->http},{"elapsedSeconds",applied?e->candidate().seconds:e->seconds},{"inputWidth",tile.image.w},{"inputHeight",tile.image.h},{"left",tile.rect.left},{"top",tile.rect.top},{"selected",tile.selected}};
+    Json j={{"utc",date},{"version","0.4.1"},{"runId",applied?e->candidate().runId:e->runId},{"event",event},{"provider",(applied?e->candidate().provider:e->settings.provider)==0?"openai":"gemini"},{"model",applied?e->candidate().model:e->settings.model},{"http",applied?200:e->http},{"elapsedSeconds",applied?e->candidate().seconds:e->seconds},{"inputWidth",tile.image.w},{"inputHeight",tile.image.h},{"left",tile.rect.left},{"top",tile.rect.top},{"selected",tile.selected}};
     j["naturalPlacement"]=applied?e->candidate().natural:e->settings.natural;j["quality"]=applied?e->candidate().quality:e->settings.quality;j["complexity"]=applied?e->candidate().complexity:e->settings.complexity;
     if(!applied){j["operation"]=e->settings.operation;j["positionHintPixels"]=std::count_if(e->positionHint.begin(),e->positionHint.end(),[](unsigned char a){return a!=0;});}
     if(std::string(event)=="success"){j["fallbackCount"]=e->reply.fallbackCount;j["effectiveQuality"]=e->reply.quality;j["effectiveComplexity"]=e->reply.complexity;j["usage"]=e->reply.usage;j["requestId"]=e->reply.requestId;j["outputWidth"]=e->reply.image.w;j["outputHeight"]=e->reply.image.h;}
@@ -116,14 +116,14 @@ static void paintImage(DRAWITEMSTRUCT* d,const Image& im,const wchar_t* empty){f
 }
 static void paintControl(Editor* e,DRAWITEMSTRUCT* d){
     if(d->CtlType==ODT_COMBOBOX){bool disabled=!IsWindowEnabled(d->hwndItem);fill(d->hDC,d->rcItem,(d->itemState&ODS_SELECTED)?color::border:color::input);SetBkMode(d->hDC,TRANSPARENT);SetTextColor(d->hDC,disabled?color::disabled:color::text);if(d->itemID!=(UINT)-1){int n=(int)SendMessageW(d->hwndItem,CB_GETLBTEXTLEN,d->itemID,0);if(n>=0){std::wstring text(n+1,0);SendMessageW(d->hwndItem,CB_GETLBTEXT,d->itemID,(LPARAM)text.data());RECT r=d->rcItem;r.left+=9;DrawTextW(d->hDC,text.c_str(),n,&r,DT_SINGLELINE|DT_VCENTER|DT_END_ELLIPSIS);}}if(d->itemState&ODS_FOCUS){RECT r=d->rcItem;InflateRect(&r,-2,-2);DrawFocusRect(d->hDC,&r);}return;}
-    if(d->CtlType==ODT_BUTTON){bool disabled=d->itemState&ODS_DISABLED,primary=d->CtlID==ID_GENERATE||d->CtlID==ID_CONNECT;COLORREF bg=disabled?color::panel:primary?color::accent:(d->itemState&ODS_SELECTED)?color::border:color::panel;HBRUSH brush=CreateSolidBrush(bg);HPEN pen=CreatePen(PS_SOLID,1,primary&&!disabled?color::accent:color::border);auto oldB=SelectObject(d->hDC,brush),oldP=SelectObject(d->hDC,pen);RoundRect(d->hDC,d->rcItem.left,d->rcItem.top,d->rcItem.right,d->rcItem.bottom,9,9);SelectObject(d->hDC,oldB);SelectObject(d->hDC,oldP);DeleteObject(brush);DeleteObject(pen);SetBkMode(d->hDC,TRANSPARENT);SetTextColor(d->hDC,disabled?color::disabled:primary?color::input:color::text);RECT r=d->rcItem;auto text=getText(e->hwnd,d->CtlID);DrawTextW(d->hDC,text.c_str(),-1,&r,DT_SINGLELINE|DT_CENTER|DT_VCENTER);if(d->itemState&ODS_FOCUS){InflateRect(&r,-4,-4);DrawFocusRect(d->hDC,&r);}return;}
+    if(d->CtlType==ODT_BUTTON){bool disabled=d->itemState&ODS_DISABLED,primary=d->CtlID==ID_GENERATE||d->CtlID==ID_CONNECT,danger=d->CtlID==ID_CANCEL_RUN;COLORREF bg=danger&&disabled?RGB(127,29,29):disabled?color::panel:danger?((d->itemState&ODS_SELECTED)?color::dangerPressed:color::danger):primary?color::accent:(d->itemState&ODS_SELECTED)?color::border:color::panel;HBRUSH brush=CreateSolidBrush(bg);HPEN pen=CreatePen(PS_SOLID,1,danger&&!disabled?color::danger:primary&&!disabled?color::accent:color::border);auto oldB=SelectObject(d->hDC,brush),oldP=SelectObject(d->hDC,pen);RoundRect(d->hDC,d->rcItem.left,d->rcItem.top,d->rcItem.right,d->rcItem.bottom,9,9);SelectObject(d->hDC,oldB);SelectObject(d->hDC,oldP);DeleteObject(brush);DeleteObject(pen);SetBkMode(d->hDC,TRANSPARENT);SetTextColor(d->hDC,danger?RGB(255,255,255):disabled?color::disabled:danger?RGB(255,255,255):primary?color::input:color::text);RECT r=d->rcItem;auto text=getText(e->hwnd,d->CtlID);DrawTextW(d->hDC,text.c_str(),-1,&r,DT_SINGLELINE|DT_CENTER|DT_VCENTER);if(d->itemState&ODS_FOCUS){InflateRect(&r,-4,-4);DrawFocusRect(d->hDC,&r);}return;}
     if(d->CtlID==ID_SOURCE)paintImage(d,e->sourcePreview,cloud::tr(L"入力画像"));else if(d->CtlID==ID_RESULT)paintImage(d,e->candidate().empty()?e->input.image:e->candidate().tile.image,cloud::tr(L"生成結果をここで確認"));else if(d->CtlID==ID_REF_PREVIEW)paintImage(d,e->referencePreview,L"+");
 }
-static void fitWindow(Editor* e){HWND h=e->hwnd;RECT wr{};GetWindowRect(h,&wr);MONITORINFO mi{sizeof(mi)};GetMonitorInfoW(MonitorFromWindow(h,MONITOR_DEFAULTTONEAREST),&mi);double factor=std::min({1.0,(double)(mi.rcWork.right-mi.rcWork.left-40)/(wr.right-wr.left),(double)(mi.rcWork.bottom-mi.rcWork.top-40)/(wr.bottom-wr.top)});
+static void fitWindow(Editor* e){HWND h=e->hwnd;RECT wr{};GetWindowRect(h,&wr);MONITORINFO mi{sizeof(mi)};GetMonitorInfoW(MonitorFromWindow(h,MONITOR_DEFAULTTONEAREST),&mi);RECT cr{};GetClientRect(h,&cr);int frameW=(wr.right-wr.left)-cr.right,frameH=(wr.bottom-wr.top)-cr.bottom;double factor=fitClientScale(cr.right,cr.bottom,mi.rcWork.right-mi.rcWork.left,mi.rcWork.bottom-mi.rcWork.top,frameW,frameH);
     LOGFONTW lf{};GetObjectW((HFONT)SendMessageW(h,WM_GETFONT,0,0),sizeof(lf),&lf);lf.lfHeight=(LONG)(lf.lfHeight*factor);e->bodyFont=CreateFontIndirectW(&lf);
     struct Layout{HWND dialog;double factor;HFONT font;} layout{h,factor,e->bodyFont};
     EnumChildWindows(h,[](HWND child,LPARAM data)->BOOL{auto l=(Layout*)data;RECT r;GetWindowRect(child,&r);MapWindowPoints(nullptr,l->dialog,(POINT*)&r,2);SetWindowPos(child,nullptr,(int)(r.left*l->factor),(int)(r.top*l->factor),(int)((r.right-r.left)*l->factor),(int)((r.bottom-r.top)*l->factor),SWP_NOZORDER|SWP_NOACTIVATE);SendMessageW(child,WM_SETFONT,(WPARAM)l->font,TRUE);return TRUE;},(LPARAM)&layout);
-    int w=(int)((wr.right-wr.left)*factor),height=(int)((wr.bottom-wr.top)*factor);SetWindowPos(h,nullptr,mi.rcWork.left+(mi.rcWork.right-mi.rcWork.left-w)/2,mi.rcWork.top+(mi.rcWork.bottom-mi.rcWork.top-height)/2,w,height,SWP_NOZORDER|SWP_NOACTIVATE);
+    int w=(int)(cr.right*factor)+frameW,height=(int)(cr.bottom*factor)+frameH;SetWindowPos(h,nullptr,mi.rcWork.left+(mi.rcWork.right-mi.rcWork.left-w)/2,mi.rcWork.top+(mi.rcWork.bottom-mi.rcWork.top-height)/2,w,height,SWP_NOZORDER|SWP_NOACTIVATE);
     lf.lfHeight=(LONG)(lf.lfHeight*1.8);lf.lfWeight=FW_SEMIBOLD;wcscpy_s(lf.lfFaceName,L"Segoe UI");e->headingFont=CreateFontIndirectW(&lf);SendDlgItemMessageW(h,201,WM_SETFONT,(WPARAM)e->headingFont,TRUE);
     HDC dc=GetDC(h);auto old=SelectObject(dc,e->bodyFont);TEXTMETRICW tm{};GetTextMetricsW(dc,&tm);SelectObject(dc,old);ReleaseDC(h,dc);for(int id:{ID_PROVIDER,ID_MODEL,ID_MODE,ID_BASE,ID_LANGUAGE}){SendDlgItemMessageW(h,id,CB_SETITEMHEIGHT,0,tm.tmHeight+8);SendDlgItemMessageW(h,id,CB_SETITEMHEIGHT,(WPARAM)-1,tm.tmHeight+6);}
 }
@@ -179,7 +179,7 @@ static INT_PTR CALLBACK dialogImpl(HWND h,UINT msg,WPARAM wp,LPARAM lp){Editor* 
         else{try{Candidate next;next.natural=e->settings.natural;next.tile=placeResult(e->input,e->reply.image,next.natural,e->alphaLocked);next.runId=e->runId;next.model=e->settings.model;next.provider=e->settings.provider;next.seconds=e->seconds;next.quality=e->reply.quality;next.complexity=e->reply.complexity;e->history.push(std::move(next));status(e,e->reply.fallbackCount?cloud::tr(L"生成完了。APIの設定未対応のため互換設定を使用しました。結果の画質表示を確認してください。"):cloud::tr(L"生成完了。取り消し／やり直しで比較できます。最大8候補を保持。"));appendLog(e,"success");InvalidateRect(GetDlgItem(h,ID_RESULT),nullptr,TRUE);}catch(const std::exception& ex){status(e,localizeError(wide(ex.what())));appendLog(e,"image_processing_failed");}}
         e->busy=false;refreshControls(e);refreshPreview(e);if(!e->settings.key.empty())SecureZeroMemory(e->settings.key.data(),e->settings.key.size());e->settings.key.clear();return TRUE;
     }
-    if(msg==WM_CLOSE){if(e->busy){e->cancel.stop();return TRUE;}saveFields(e);EndDialog(h,IDCANCEL);return TRUE;}
+    if(msg==WM_CLOSE){if(e->busy){e->cancel.stop();refreshControls(e);return TRUE;}saveFields(e);EndDialog(h,IDCANCEL);return TRUE;}
     if(msg==WM_COMMAND){int id=LOWORD(wp),notification=HIWORD(wp);
         if(id==ID_PROMPT&&notification==EN_CHANGE){InvalidateRect(GetDlgItem(h,ID_PROMPT),nullptr,TRUE);return TRUE;}
         if(id==ID_KEY&&notification==EN_CHANGE){keyNote(e);refreshControls(e);return TRUE;}
@@ -205,7 +205,7 @@ static INT_PTR CALLBACK dialogImpl(HWND h,UINT msg,WPARAM wp,LPARAM lp){Editor* 
         if(id==ID_GUIDE&&!e->busy){e->positionHint.clear();refreshPreview(e);refreshControls(e);status(e,cloud::tr(L"位置指定を解除しました。文章だけでも生成できます。"));return TRUE;}
         if((id==ID_PREVIOUS||id==ID_REDO)&&!e->busy){if(id==ID_PREVIOUS)e->history.undo();else e->history.redo();refreshControls(e);refreshPreview(e);InvalidateRect(GetDlgItem(h,ID_RESULT),nullptr,TRUE);status(e,e->candidate().empty()?cloud::tr(L"生成前の元画像に戻しました。「やり直し」で候補を復元できます。"):cloud::tr(L"生成履歴 ")+std::to_wstring(e->history.position())+L" / "+std::to_wstring(e->history.count())+cloud::tr(L"。表示中の結果が適用されます。"));return TRUE;}
         if(id==ID_GENERATE){start(e);return TRUE;}
-        if(id==ID_CANCEL_RUN){e->cancel.stop();status(e,cloud::tr(L"中止処理中…"));return TRUE;}
+        if(id==ID_CANCEL_RUN){if(!emergencyStopEnabled(e->busy,e->cancel.cancelled))return TRUE;e->cancel.stop();refreshControls(e);status(e,cloud::tr(L"中止処理中…"));return TRUE;}
         if(id==ID_CLEAR_KEY&&!e->busy){if(GetWindowTextLengthW(GetDlgItem(h,ID_KEY))==0){status(e,cloud::tr(L"消去するキーはありません。"));return TRUE;}if(MessageBoxW(h,cloud::tr(L"この接続先のAPIキーを消去しますか？\n送信する場合は「いいえ」で戻り、「送信・モデル取得」を押してください。"),cloud::tr(L"APIキーの消去"),MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2)!=IDYES)return TRUE;for(auto* k:{&e->session.keys[e->session.provider],&e->session.connectedKeys[e->session.provider]}){if(!k->empty())SecureZeroMemory(k->data(),k->size()*sizeof(wchar_t));k->clear();}e->session.availableModels[e->session.provider].clear();e->session.model[e->session.provider]=0;models(e);status(e,cloud::tr(L"選択中の接続先のキーを消去しました。"));return TRUE;}
         if(id==ID_REF_CLEAR){e->session.reference.clear();e->session.referenceName.clear();e->referencePreview={};refreshControls(e);InvalidateRect(GetDlgItem(h,ID_REF_PREVIEW),nullptr,TRUE);return TRUE;}
         if(id==ID_REF_ADD&&!e->busy){wchar_t name[32768]{};OPENFILENAMEW o{};o.lStructSize=sizeof(o);o.hwndOwner=h;o.lpstrFilter=cloud::tr(L"画像 (PNG / JPEG / WebP / BMP)\0*.png;*.jpg;*.jpeg;*.webp;*.bmp\0すべて\0*.*\0");o.lpstrFile=name;o.nMaxFile=32768;o.Flags=OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST|OFN_NOCHANGEDIR;if(GetOpenFileNameW(&o)){auto image=readImageFile(name);auto png=encodePng(image);std::wstring path=name;e->session.referenceName=path.substr(path.find_last_of(L"\\/")+1);e->session.reference=std::move(png);e->referencePreview=std::move(image);refreshControls(e);InvalidateRect(GetDlgItem(h,ID_REF_PREVIEW),nullptr,TRUE);status(e,cloud::tr(L"見本を追加しました。例：「この服を着た女の子を左に追加」と指示します。"));}return TRUE;}

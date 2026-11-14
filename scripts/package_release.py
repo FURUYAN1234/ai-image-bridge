@@ -4,7 +4,7 @@ import argparse,json,shutil,zipfile,hashlib
 from verify_package import digest,verify
 ROOT=Path(__file__).resolve().parent.parent
 PDFS=['AI-Image-Bridge-Manual.pdf','OpenAI-API-Setup.pdf','Gemini-API-Setup.pdf']
-ASSETS=['cover.png','before.png','add-openai.png','replace-gemini.png','remove-openai.png','ui-ja.png','ui-en.png','workflow.svg','workflow.png','040-add-openai.png','040-replace-gemini.png']
+ASSETS=['download-button.png','note-article-button.png','plugin-manual-button.png','openai-api-guide-button.png','gemini-api-guide-button.png','cover.png','before.png','add-openai.png','replace-gemini.png','remove-openai.png','ui-ja.png','ui-en.png','workflow.svg','workflow.png','040-add-openai.png','040-replace-gemini.png']
 def package(stage):
  if stage.exists() and any(stage.iterdir()):raise ValueError('Stage must be new or empty')
  pairs=[('build/unofficial/AIImageBridge.cpm','AIImageBridge.cpm'),('LICENSE','LICENSE'),('THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md'),('vendor/compat/LICENSE','licenses/SDPlugin-Unlicense.txt'),('vendor/LICENSE.nlohmann-json.txt','licenses/nlohmann-json-MIT.txt')]
@@ -18,7 +18,7 @@ def package(stage):
  readme=(ROOT/'README.md').read_text(encoding='utf-8-sig').replace('](docs/manuals/','](manuals/')
  (stage/'README.md').write_text(readme,encoding='utf-8')
  files={p.relative_to(stage).as_posix():digest(p) for p in sorted(stage.rglob('*')) if p.is_file()}
- (stage/'manifest.json').write_text(json.dumps({'name':'AI Image Bridge','version':'0.4.0','variant':'unofficial','pluginSha256':files['AIImageBridge.cpm'],'files':files},indent=2)+'\n',encoding='utf-8')
+ (stage/'manifest.json').write_text(json.dumps({'name':'AI Image Bridge','version':'0.4.1','variant':'unofficial','pluginSha256':files['AIImageBridge.cpm'],'files':files},indent=2)+'\n',encoding='utf-8')
  sums={p.relative_to(stage).as_posix():digest(p) for p in sorted(stage.rglob('*')) if p.is_file()}
  (stage/'SHA256SUMS.json').write_text(json.dumps(sums,indent=2)+'\n',encoding='utf-8');return verify(stage)
 def archive(stage,dest):

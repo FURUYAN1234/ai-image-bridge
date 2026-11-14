@@ -1,4 +1,4 @@
-# AI Image Bridge 0.4.0: Plugin manual / プラグインマニュアル
+# AI Image Bridge 0.4.1: Plugin manual / プラグインマニュアル
 
 ## Before installing / 導入前
 
@@ -74,3 +74,9 @@ Gemini API terms require users to be at least 18, describe professional or busin
 ## Future SDK selection / 将来のSDK選択
 
 Only the unofficial SDK edition is offered in the current public package. An installer choice for the official edition is conditional on explicit CELSYS permission for GitHub distribution and equivalent host testing; it is not a current feature. There is no runtime SDK switch in the editing screen. / 現在の公開パッケージは非公式SDK版だけです。公式版を選べるインストーラーは、CELSYSによるGitHub配布の明示許可と同等のホスト実機検証を得た後の条件付き対応で、現行機能ではありません。編集画面に実行時SDK切替はありません。
+
+## Emergency stop / 緊急停止
+
+During model lookup or image generation the red, white-text Emergency stop button closes the active local request. Pressing it disables it immediately; idle/stopped requests cannot be stopped again. Inputs and prior candidates are kept, and a new explicit request can run normally. Server-side work and charges may continue. / モデル取得・画像生成中は、赤地・白文字の緊急停止で通信を止められます。押した直後と待機中は非活性です。入力と以前の候補は保持し、次の明示操作で再実行できます。提供元側の処理・課金の取り消しは保証しません。
+
+After API connection, emergency stop is visible at the top right (hidden during initial API setup). It is dark red and disabled while idle or after a stop request, and enabled only during model discovery or generation. Window fitting scales the client area while retaining native title-bar dimensions. / 初期API設定中は緊急停止を隠し、接続後は右上に表示します。待機中・停止要求後は暗赤色で非活性、モデル取得・生成中だけ有効です。小さな画面ではタイトルバーの実寸を残して操作領域を縮小します。

@@ -1,4 +1,5 @@
 #include "../src/ui.h"
+#include "../src/ui.h"
 #include <iostream>
 #include <functional>
 #include <thread>
@@ -68,6 +69,15 @@ int main(int argc,char** argv){try{
     Json gem={{"candidates",Json::array({{{"content",{{"parts",Json::array({{{"thought",true},{"inlineData",{{"mimeType","image/png"},{"data","bad"}}}},{{"text","explanation"}},{{"inlineData",{{"mimeType","image/png"},{"data",base64(png)}}}}})}}}}})}};
     require(parseImageResponse(1,gem)==png,"ignore thinking images, use final image");rejects([]{parseImageResponse(1,{{"promptFeedback",{{"blockReason","SAFETY"}}}});},"blocked Gemini response rejected");
     s.provider=3;rejects([&]{makeRequest(s,png);},"unknown provider rejected");
+    for(auto area:{std::pair<int,int>{1280,720},{800,600},{1920,1080}}){double f=fitClientScale(1560,1240,area.first,area.second,32,78);require(1560*f+32<=area.first-39 && 1240*f+78<=area.second-39,"scaled client plus native frame fits workarea");}
+    require(!emergencyStopVisible(false,false),"startup without session key hides stop");
+    require(emergencyStopVisible(true,false),"workready idle shows disabled stop");
+    require(emergencyStopVisible(false,true),"active work retains stop during connection changes");
+    require(!emergencyStopEnabled(false,false),"idle emergency stop disabled");
+    require(emergencyStopEnabled(true,false),"running emergency stop enabled");
+    require(!emergencyStopEnabled(true,true),"requested stop immediately disabled");
+    require(!emergencyStopEnabled(false,true),"stopped emergency stop disabled");
+    require(emergencyStopEnabled(true,false),"fresh request can stop again");
     Settings auth;auth.key="invalid-test-placeholder";auth.prompt="Test";auth.edit=false;
     Cancel stopped;stopped.stop();rejects([&]{generate(auth,src,stopped);},"cancelled request never proceeds");
     if(argc==2&&std::string(argv[1])=="--network-errors"){
