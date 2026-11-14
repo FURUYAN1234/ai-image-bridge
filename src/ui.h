@@ -17,11 +17,19 @@ inline const wchar_t* promptPlaceholder(int operation){
     return cloud::tr(L"例：この辺に、立って手を振る女の子を追加して。\r\n元画像をクリック・なぞって位置の目安を指定できます。");
 }
 inline void configureOperation(Settings& settings,int operation){if(operation<0||operation>2)throw std::runtime_error("編集内容が不正です。");settings.edit=true;settings.natural=true;settings.remove=false;settings.operation=operation;}
+struct PreviewRect {int left=0,top=0,width=0,height=0;};
+inline PreviewRect previewRect(int cw,int ch,int iw,int ih){
+    if(cw<1||ch<1||iw<1||ih<1)return {};
+    const int pad=std::min(6,std::max(0,(std::min(cw,ch)-1)/2));
+    const int availableW=cw-2*pad,availableH=ch-2*pad;
+    const double scale=std::min((double)availableW/iw,(double)availableH/ih);
+    const int w=std::min(availableW,std::max(1,(int)(iw*scale))),h=std::min(availableH,std::max(1,(int)(ih*scale)));
+    return {(cw-w)/2,(ch-h)/2,w,h};
+}
 inline bool previewPoint(int cw,int ch,int iw,int ih,int mx,int my,int& x,int& y){
-    if(cw<1||ch<1||iw<1||ih<1)return false;
-    double scale=std::min((double)cw/iw,(double)ch/ih);int w=std::max(1,(int)(iw*scale)),h=std::max(1,(int)(ih*scale)),left=(cw-w)/2,top=(ch-h)/2;
-    if(mx<left||mx>=left+w||my<top||my>=top+h)return false;
-    x=std::min(iw-1,(int)((double)(mx-left)*iw/w));y=std::min(ih-1,(int)((double)(my-top)*ih/h));return true;
+    const auto r=previewRect(cw,ch,iw,ih);
+    if(r.width<1||r.height<1||mx<r.left||mx>=r.left+r.width||my<r.top||my>=r.top+r.height)return false;
+    x=std::min(iw-1,(int)((double)(mx-r.left)*iw/r.width));y=std::min(ih-1,(int)((double)(my-r.top)*ih/r.height));return true;
 }
 inline void markPosition(Bytes& mask,int w,int h,int fromX,int fromY,int toX,int toY,int radius){
     if(w<1||h<1||mask.size()!=(size_t)w*h||radius<1||radius>std::max(w,h)||fromX<0||fromX>=w||toX<0||toX>=w||fromY<0||fromY>=h||toY<0||toY>=h)throw std::runtime_error("位置指定が不正です。");

@@ -78,7 +78,7 @@ A ChatGPT subscription does not include OpenAI API usage. API requests can incur
 
 
 1. Save open work and exit CLIP STUDIO PAINT. / 作業を保存し、CLIP STUDIO PAINTを終了します。
-2. Download `AI-Image-Bridge-0.4.1-Windows-x64.zip` from the [v0.4.1 release](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.1) and extract the entire ZIP into a new folder. / [v0.4.0のRelease](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.1)から`AI-Image-Bridge-0.4.1-Windows-x64.zip`を取得し、新しいフォルダーへ全体を展開します。
+2. Download `AI-Image-Bridge-0.4.1-Windows-x64.zip` from the [v0.4.1 release](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.1) and extract the entire ZIP into a new folder. / [v0.4.1のRelease](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.1)から`AI-Image-Bridge-0.4.1-Windows-x64.zip`を取得し、新しいフォルダーへ全体を展開します。
 3. Double-click `Install.cmd` and follow its prompts. Keep the bundled license files with the plugin. / `Install.cmd`を実行して案内に従います。同梱のライセンスファイルもプラグインと一緒に配置してください。
 4. Start CLIP STUDIO PAINT and open `Filter → AI Image Bridge (Unofficial SDK) → AI image editor...`. / CLIP STUDIO PAINTを起動し、`フィルター → AI Image Bridge (Unofficial SDK) → AI画像編集...`を開きます。
 5. Enter an API key and use the model-retrieval button. Confirm that image models appear before generating. / APIキーを入力してモデル取得ボタンを押し、画像モデルが表示されてから生成します。
@@ -263,3 +263,5 @@ Use a new or empty staging directory. The package records every file hash and us
 The active **Emergency stop** button now has a red background and white text. It stops local communication during model lookup or image generation, immediately becomes disabled when pressed, and remains unavailable while idle. Inputs and earlier candidates remain intact. Submitted requests can still incur provider charges. / モデル取得・画像生成中の「緊急停止」を赤地・白文字にしました。押すとローカル通信を中止し、即座に非活性になります。待機中も操作できません。入力と以前の候補を保持します。送信済み処理は提供元で課金される場合があります。
 
 After API connection, emergency stop is visible at the top right (hidden during initial API setup), with readable dark-red disabled styling; native frame dimensions are retained when fitting a small work area. / 初期API設定中は緊急停止を隠し、接続後は画面右上に表示し、非活性時も暗赤色と白文字で読めるようにしました。小さな作業領域への縮小ではネイティブの枠・タイトルバーの実寸を考慮します。
+
+Previews contain the entire image within a visible frame and a 6-pixel inner gutter. Clicking the gutter does not add a position hint. Preview display does not crop or change source/output pixels. / プレビューは画像全体を枠と6pxの内余白に収めます。余白をクリックしても位置指定は付きません。表示の変更で元画像・出力画像を切り取りません。

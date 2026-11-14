@@ -108,9 +108,11 @@ static void appendLog(Editor* e,const char* event){try{SYSTEMTIME t{};GetSystemT
     std::ofstream f(e->logPath,std::ios::app);f<<j.dump()<<"\n";
 }catch(...){}}
 static void fill(HDC dc,RECT r,COLORREF c){HBRUSH b=CreateSolidBrush(c);FillRect(dc,&r,b);DeleteObject(b);}
-static void paintImage(DRAWITEMSTRUCT* d,const Image& im,const wchar_t* empty){fill(d->hDC,d->rcItem,color::input);SetTextColor(d->hDC,color::muted);SetBkMode(d->hDC,TRANSPARENT);
+static void paintImage(DRAWITEMSTRUCT* d,const Image& im,const wchar_t* empty){fill(d->hDC,d->rcItem,color::input);HBRUSH frame=CreateSolidBrush(color::muted);FrameRect(d->hDC,&d->rcItem,frame);DeleteObject(frame);SetTextColor(d->hDC,color::muted);SetBkMode(d->hDC,TRANSPARENT);
     if(im.empty()){RECT text=d->rcItem;InflateRect(&text,-12,-12);DrawTextW(d->hDC,empty,-1,&text,DT_CENTER|DT_VCENTER|DT_SINGLELINE|DT_END_ELLIPSIS);return;}
-    int cw=d->rcItem.right-d->rcItem.left,ch=d->rcItem.bottom-d->rcItem.top;double scale=std::min((double)cw/im.w,(double)ch/im.h);int w=std::max(1,(int)(im.w*scale)),h=std::max(1,(int)(im.h*scale));int x=d->rcItem.left+(cw-w)/2,y=d->rcItem.top+(ch-h)/2;
+    const auto rect=previewRect(d->rcItem.right-d->rcItem.left,d->rcItem.bottom-d->rcItem.top,im.w,im.h);
+    const int x=d->rcItem.left+rect.left,y=d->rcItem.top+rect.top,w=rect.width,h=rect.height;
+    if(w<1||h<1)return;
     Bytes bgra=im.rgba;for(size_t p=0;p<bgra.size()/4;p++){int px=(int)(p%im.w),py=(int)(p/im.w);int bg=((px/16+py/16)%2)?57:68;int a=im.rgba[p*4+3];for(int c=0;c<3;c++)bgra[p*4+c]=(unsigned char)((im.rgba[p*4+2-c]*a+bg*(255-a)+127)/255);bgra[p*4+3]=255;}
     BITMAPINFO bi{};bi.bmiHeader.biSize=sizeof(BITMAPINFOHEADER);bi.bmiHeader.biWidth=im.w;bi.bmiHeader.biHeight=-im.h;bi.bmiHeader.biPlanes=1;bi.bmiHeader.biBitCount=32;bi.bmiHeader.biCompression=BI_RGB;SetStretchBltMode(d->hDC,HALFTONE);StretchDIBits(d->hDC,x,y,w,h,0,0,im.w,im.h,bgra.data(),&bi,DIB_RGB_COLORS,SRCCOPY);
 }

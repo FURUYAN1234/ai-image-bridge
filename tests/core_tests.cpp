@@ -23,6 +23,18 @@ int main(int argc,char** argv){try{
     for(int operation=0;operation<3;operation++){Settings edit;edit.key="unit-test-placeholder";edit.prompt="change the indicated subject";configureOperation(edit,operation);auto request=makeRequest(edit,{1},{2});std::string body(request.body.begin(),request.body.end());require(edit.natural&&!edit.remove&&body.find("rough POSITION hint")!=std::string::npos,"all three operations use natural full-image editing");if(operation==1)require(body.find("Do not keep a duplicate")!=std::string::npos,"replacement removes original target");if(operation==2)require(body.find("remove the complete target even if it extends outside")!=std::string::npos,"removal is not clipped to hint");}
     require(std::wstring(promptPlaceholder(0))!=promptPlaceholder(1)&&std::wstring(promptPlaceholder(1))!=promptPlaceholder(2),"operation cue text is distinct");
     Settings emptyEdit;emptyEdit.key="test-placeholder";configureOperation(emptyEdit,2);rejects([&]{makeRequest(emptyEdit,{1});},"placeholder is not submitted as user instructions");rejects([&]{configureOperation(emptyEdit,9);},"invalid operation rejected");
+    for(auto control:{std::pair<int,int>{498,343},{249,343},{234,171},{117,85},{44,44},{1,1}}){
+        for(auto image:{std::pair<int,int>{2240,3078},{3078,2240},{1000,1000}}){
+            auto r=previewRect(control.first,control.second,image.first,image.second);
+            require(r.width>0&&r.height>0&&r.left>=0&&r.top>=0&&r.left+r.width<=control.first&&r.top+r.height<=control.second,"contain rectangle stays inside scaled control");
+            if(std::min(control.first,control.second)>=13)require(r.left>=6&&r.top>=6&&r.left+r.width<=control.first-6&&r.top+r.height<=control.second-6,"six pixel image gutter on all sides");
+            int x=-1,y=-1;require(previewPoint(control.first,control.second,image.first,image.second,r.left,r.top,x,y)&&x==0&&y==0,"top left source maps consistently");
+            require(previewPoint(control.first,control.second,image.first,image.second,r.left+r.width-1,r.top+r.height-1,x,y)&&x<image.first&&y<image.second,"bottom right preview maps inside full source");
+            require(!previewPoint(control.first,control.second,image.first,image.second,r.left+r.width,r.top,x,y),"right edge gutter cannot paint a hint");
+            if(r.top>0)require(!previewPoint(control.first,control.second,image.first,image.second,r.left,r.top-1,x,y),"upper gutter cannot paint a hint");
+            if(r.left>0)require(!previewPoint(control.first,control.second,image.first,image.second,r.left-1,r.top,x,y),"left gutter cannot paint a hint");
+        }
+    }
     int px=0,py=0;require(previewPoint(400,400,1000,500,200,200,px,py)&&px==500&&py==250,"preview click maps through letterboxing to actual image");require(!previewPoint(400,400,1000,500,200,50,px,py)&&!previewPoint(400,400,1000,500,400,200,px,py),"letterbox and right boundary cannot create misplaced hints");
     Bytes rough(100,0);markPosition(rough,10,10,0,0,9,9,1);require(rough[0]==255&&rough[99]==255&&rough[55]==255&&rough[9]==0,"open stroke is continuous and clipped safely at canvas edges");rejects([&]{markPosition(rough,10,10,-1,0,9,9,1);},"invalid stroke point rejected");rejects([&]{markPosition(rough,11,10,0,0,9,9,1);},"wrong-sized hint cannot corrupt memory");
     Json unsupported={{"error",{{"code","unsupported_value"},{"param","quality"}}}};
