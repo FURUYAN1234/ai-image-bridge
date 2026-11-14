@@ -1,3 +1,4 @@
+#include "generated_version.h"
 #include "ui.h"
 #include <commdlg.h>
 #include <shellapi.h>
@@ -62,11 +63,11 @@ static void applyLanguage(Editor* e){HWND h=e->hwnd;int base=selection(h,ID_BASE
 #else
     constexpr auto variant=L"Unofficial SDK";
 #endif
-    SetWindowTextW(h,(std::wstring(L"AI Image Bridge 0.4.1 | ")+variant).c_str());
+    SetWindowTextW(h,(std::wstring(AIB_TITLE_WIDE L" | ")+variant).c_str());
     SetDlgItemTextW(h,136,uiLanguage?L"Manuals":L"マニュアル");
     SetDlgItemTextW(h,201,tr(L"AI Image Bridge"));
     SetDlgItemTextW(h,202,tr(L"選ぶ。指示する。絵に戻す。"));
-    SetDlgItemTextW(h,203,(std::wstring(L"0.4.1 / ")+variant).c_str());
+    SetDlgItemTextW(h,203,(std::wstring(AIB_VERSION_WIDE L" / ")+variant).c_str());
     SetDlgItemTextW(h,301,tr(L"APIキー"));
     SetDlgItemTextW(h,130,tr(L"送信・モデル取得"));
     SetDlgItemTextW(h,115,tr(L"消去"));
@@ -101,7 +102,7 @@ static void applyLanguage(Editor* e){HWND h=e->hwnd;int base=selection(h,ID_BASE
 static void saveFields(Editor* e){auto& s=e->session;HWND h=e->hwnd;s.keys[s.provider]=getText(h,ID_KEY);s.model[s.provider]=selection(h,ID_MODEL);s.prompt=getText(h,ID_PROMPT);s.mode=selection(h,ID_MODE);}
 static void appendLog(Editor* e,const char* event){try{SYSTEMTIME t{};GetSystemTime(&t);char date[40];sprintf_s(date,"%04u-%02u-%02uT%02u:%02u:%02uZ",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond);
     bool applied=std::string(event)=="apply";const auto& tile=applied?e->candidate().tile:e->input;
-    Json j={{"utc",date},{"version","0.4.1"},{"runId",applied?e->candidate().runId:e->runId},{"event",event},{"provider",(applied?e->candidate().provider:e->settings.provider)==0?"openai":"gemini"},{"model",applied?e->candidate().model:e->settings.model},{"http",applied?200:e->http},{"elapsedSeconds",applied?e->candidate().seconds:e->seconds},{"inputWidth",tile.image.w},{"inputHeight",tile.image.h},{"left",tile.rect.left},{"top",tile.rect.top},{"selected",tile.selected}};
+    Json j={{"utc",date},{"version",AIB_VERSION_TEXT},{"runId",applied?e->candidate().runId:e->runId},{"event",event},{"provider",(applied?e->candidate().provider:e->settings.provider)==0?"openai":"gemini"},{"model",applied?e->candidate().model:e->settings.model},{"http",applied?200:e->http},{"elapsedSeconds",applied?e->candidate().seconds:e->seconds},{"inputWidth",tile.image.w},{"inputHeight",tile.image.h},{"left",tile.rect.left},{"top",tile.rect.top},{"selected",tile.selected}};
     j["naturalPlacement"]=applied?e->candidate().natural:e->settings.natural;j["quality"]=applied?e->candidate().quality:e->settings.quality;j["complexity"]=applied?e->candidate().complexity:e->settings.complexity;
     if(!applied){j["operation"]=e->settings.operation;j["positionHintPixels"]=std::count_if(e->positionHint.begin(),e->positionHint.end(),[](unsigned char a){return a!=0;});}
     if(std::string(event)=="success"){j["fallbackCount"]=e->reply.fallbackCount;j["effectiveQuality"]=e->reply.quality;j["effectiveComplexity"]=e->reply.complexity;j["usage"]=e->reply.usage;j["requestId"]=e->reply.requestId;j["outputWidth"]=e->reply.image.w;j["outputHeight"]=e->reply.image.h;}

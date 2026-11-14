@@ -1,3 +1,4 @@
+#include "generated_version.h"
 #include "core.h"
 #include <wincodec.h>
 #include <wrl/client.h>
@@ -182,7 +183,7 @@ bool capabilityFallback(Settings& s,const ApiError& error){
 }
 static HttpReply sendHttp(const Request& r,Cancel& cancel){
     if(r.body.size()>128*1024*1024)throw std::runtime_error("送信データが128MBを超えています。参照範囲や参考画像を小さくしてください。");if(cancel.cancelled)throw ApiError(0,"中止しました。");
-    InternetHandle session(WinHttpOpen(L"CloudImageFilter/0.3.0",WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY,WINHTTP_NO_PROXY_NAME,WINHTTP_NO_PROXY_BYPASS,0));
+    InternetHandle session(WinHttpOpen(L"CloudImageFilter/" AIB_VERSION_WIDE,WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY,WINHTTP_NO_PROXY_NAME,WINHTTP_NO_PROXY_BYPASS,0));
     WinHttpSetTimeouts(session.h,15000,15000,60000,300000);InternetHandle conn(WinHttpConnect(session.h,r.host.c_str(),INTERNET_DEFAULT_HTTPS_PORT,0));
     HINTERNET req=WinHttpOpenRequest(conn.h,r.method.c_str(),r.path.c_str(),nullptr,WINHTTP_NO_REFERER,WINHTTP_DEFAULT_ACCEPT_TYPES,WINHTTP_FLAG_SECURE);if(!req)throw ApiError(0,"通信要求を作成できませんでした。");
     cancel.request=req;struct Cleanup{Cancel& c;~Cleanup(){c.close();}} cleanup{cancel};if(cancel.cancelled){cancel.close();throw ApiError(0,"中止しました。");}

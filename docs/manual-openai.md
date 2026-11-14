@@ -1,4 +1,4 @@
-# AI Image Bridge 0.4.2: OpenAI API setup / OpenAI API準備マニュアル
+# AI Image Bridge 0.4.3: OpenAI API setup / OpenAI API準備マニュアル
 
 Checked 2026-11-14; account screens may change. No key or payment action is performed by this manual. / 2026年11月14日確認。アカウント画面は変わる場合があります。この説明自体がキー作成や決済を実行することはありません。
 

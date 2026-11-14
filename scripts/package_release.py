@@ -7,6 +7,8 @@ VERSION=(ROOT/'VERSION').read_text(encoding='utf-8').strip()
 PDFS=['AI-Image-Bridge-Manual.pdf','OpenAI-API-Setup.pdf','Gemini-API-Setup.pdf']
 ASSETS=['download-button.png','note-article-button.png','plugin-manual-button.png','openai-api-guide-button.png','gemini-api-guide-button.png','cover.png','before.png','add-openai.png','replace-gemini.png','remove-openai.png','ui-ja.png','ui-en.png','workflow.svg','workflow.png','040-add-openai.png','040-replace-gemini.png']
 def package(stage):
+ from check_distribution import check_distribution
+ check_distribution(ROOT)
  if stage.exists() and any(stage.iterdir()):raise ValueError('Stage must be new or empty')
  pairs=[('build/unofficial/AIImageBridge.cpm','AIImageBridge.cpm'),('LICENSE','LICENSE'),('THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md'),('vendor/compat/LICENSE','licenses/SDPlugin-Unlicense.txt'),('vendor/LICENSE.nlohmann-json.txt','licenses/nlohmann-json-MIT.txt')]
  pairs += [('scripts/'+n,n) for n in ['Install.cmd','Install.ps1','Uninstall.cmd','Uninstall.ps1']]
