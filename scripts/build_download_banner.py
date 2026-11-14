@@ -35,4 +35,4 @@ for name,bg,ink,accent,icon,jp,en,sub,url in specs:
  for x,y,t,size,color,bold in texts:
   svg.append(f'<text x="{x}" y="{y+size}" fill="{color}" font-family="Meiryo,sans-serif" font-size="{size}" font-weight="{700 if bold else 400}">{escape(t)}</text>')
  svg += [f'<circle cx="1127" cy="122" r="43" fill="{accent}"/>',f'<path d="M1105 122H1147M1132 106L1148 122L1132 138" fill="none" stroke="{bg}" stroke-width="5"/>','</svg>']
- (ASSETS/(name+'.svg')).write_text('\n'.join(svg)+'\n',encoding='utf-8')
+ (ASSETS/(name+'.svg')).write_bytes(('\n'.join(svg)+'\n').encode('utf-8'))
