@@ -9,6 +9,15 @@ static int total=0;
 void require(bool x,const char* message){++total;if(!x)throw std::runtime_error(message);}
 void rejects(std::function<void()> fn,const char* message){bool rejected=false;try{fn();}catch(const std::exception&){rejected=true;}require(rejected,message);}
 int main(int argc,char** argv){try{
+    require(emergencyStopBackground(true,false)==RGB(82,82,82),"idle emergency stop is neutral gray");
+    require(emergencyStopBackground(true,true)==RGB(82,82,82),"disabled stop cannot acquire pressed red");
+    require(emergencyStopBackground(false,false)==RGB(185,28,28),"active emergency stop stays red");
+    require(emergencyStopBackground(false,true)==RGB(153,27,27),"active pressed emergency stop stays red");
+    require(emergencyStopBorder(true)==RGB(163,163,163),"disabled emergency border is gray");
+    for(bool busy:{false,true})for(bool cancelled:{false,true})require(emergencyStopBackground(!emergencyStopEnabled(busy,cancelled),false)==(busy&&!cancelled?RGB(185,28,28):RGB(82,82,82)),"idle/active/stopped state maps to appearance");
+    uiLanguage=0;require(emergencyStopWaitHint().find(L"緊急停止")!=std::wstring::npos&&emergencyStopWaitHint().find(L"中止ボタン")==std::wstring::npos,"Japanese wait hint uses actual emergency stop label");
+    uiLanguage=1;require(emergencyStopWaitHint().find(L"Emergency stop")!=std::wstring::npos,"English wait hint matches emergency stop label");
+
     uiLanguage=1;require(std::wstring(promptPlaceholder(0)).find(L"Example:")==0,"English placeholder is localized");
     require(localizeError(L"APIキーを確認してください。 自動再試行はしていません。")==L"Check your API key. No automatic retry was made.","composed API errors are localized");
     uiLanguage=0;require(std::wstring(promptPlaceholder(0)).find(L"例：")==0,"Japanese placeholder restored");

@@ -262,7 +262,7 @@ Use a new or empty staging directory. The package records every file hash and us
 
 The active **Emergency stop** button now has a red background and white text. It stops local communication during model lookup or image generation, immediately becomes disabled when pressed, and remains unavailable while idle. Inputs and earlier candidates remain intact. Submitted requests can still incur provider charges. / モデル取得・画像生成中の「緊急停止」を赤地・白文字にしました。押すとローカル通信を中止し、即座に非活性になります。待機中も操作できません。入力と以前の候補を保持します。送信済み処理は提供元で課金される場合があります。
 
-After API connection, emergency stop is visible at the top right (hidden during initial API setup), with readable dark-red disabled styling; native frame dimensions are retained when fitting a small work area. / 初期API設定中は緊急停止を隠し、接続後は画面右上に表示し、非活性時も暗赤色と白文字で読めるようにしました。小さな作業領域への縮小ではネイティブの枠・タイトルバーの実寸を考慮します。
+After API connection, emergency stop is visible at the top right (hidden during initial API setup), with readable gray disabled styling; native frame dimensions are retained when fitting a small work area. / 初期API設定中は緊急停止を隠し、接続後は画面右上に表示し、非活性時はグレーと白文字で読めるようにしました。小さな作業領域への縮小ではネイティブの枠・タイトルバーの実寸を考慮します。
 
 Previews contain the entire image within a visible frame and a 6-pixel inner gutter. Clicking the gutter does not add a position hint. Preview display does not crop or change source/output pixels. / プレビューは画像全体を枠と6pxの内余白に収めます。余白をクリックしても位置指定は付きません。表示の変更で元画像・出力画像を切り取りません。
 

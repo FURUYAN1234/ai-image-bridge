@@ -51,7 +51,7 @@ inline const Translation translations[]={
     {L"中止処理中…",L"Cancelling..."},
     {L"モデル取得中… ",L"Fetching models... "},
     {L"生成中… ",L"Generating... "},
-    {L"秒。中止ボタンで通信を止められます。",L" s. Use Emergency stop to stop waiting."},
+    {L"秒。「緊急停止」で通信を止められます。",L" s. Use Emergency stop to stop waiting."},
     {L"モデル取得を中止しました。入力したキーと既存候補は保持しています。",L"Model lookup cancelled. Your key and existing candidate are retained."},
     {L" 入力したキーは保持しています。",L" Your entered key is retained."},
     {L"接続成功。このAPIには対応画像モデルが見つかりませんでした。",L"Connected, but no supported image models were found for this key."},

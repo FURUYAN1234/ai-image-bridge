@@ -22,6 +22,14 @@ class BannerTests(unittest.TestCase):
    with self.assertRaises(ValueError):png_banner_version(path)
    path.write_bytes(b'\x89PNG\r\n\x1a\n')
    with self.assertRaises(ValueError):png_banner_version(path)
+class NativeStopIntegrationTests(unittest.TestCase):
+ def test_owner_draw_and_hint_use_tested_shared_helpers(self):
+  source=(ROOT/'src/ui.cpp').read_text(encoding='utf-8')
+  self.assertIn('danger?emergencyStopBackground(disabled,',source)
+  self.assertIn('danger?emergencyStopBorder(disabled)',source)
+  self.assertIn('cloud::emergencyStopWaitHint()',source)
+  self.assertNotIn('中止ボタン',source)
+  self.assertNotIn('RGB(127,29,29)',source)
 class RuntimeVersionTests(unittest.TestCase):
  def test_current_distribution_and_runtime_match_version(self):
   self.assertEqual(check_distribution(),(ROOT/'VERSION').read_text().strip())

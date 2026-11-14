@@ -70,4 +70,8 @@ bool showEditor(HINSTANCE instance,HWND owner,SessionState& session,const ReadIn
 }
 
 namespace cloud { inline bool emergencyStopVisible(bool workReady,bool busy){return workReady||busy;}
-inline bool emergencyStopEnabled(bool busy, bool cancelled) { return busy && !cancelled; } }
+inline bool emergencyStopEnabled(bool busy, bool cancelled) { return busy && !cancelled; }
+inline COLORREF emergencyStopBackground(bool disabled,bool pressed) { return disabled?RGB(82,82,82):pressed?RGB(153,27,27):RGB(185,28,28); }
+inline COLORREF emergencyStopBorder(bool disabled) { return disabled?RGB(163,163,163):RGB(185,28,28); }
+inline std::wstring emergencyStopWaitHint() { return tr(L"秒。「緊急停止」で通信を止められます。"); }
+ }
