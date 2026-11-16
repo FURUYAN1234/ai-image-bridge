@@ -58,9 +58,9 @@ The model receives the whole layer. The pink hint indicates an approximate posit
 | Edition / 版 | Download or route / 入手先と経路 | Status / 状況 |
 | --- | --- | --- |
 | Unofficial SDK build / 非公式SDK版 | [Download ZIP / ZIPを取得](https://github.com/FURUYAN1234/ai-image-bridge/releases/download/v0.4.3/AI-Image-Bridge-0.4.3-Windows-x64.zip) · [Release / リリース](https://github.com/FURUYAN1234/ai-image-bridge/releases/tag/v0.4.3) · [Source / ソース](https://github.com/FURUYAN1234/ai-image-bridge) | Public distribution edition / 一般配布用の非公式SDK版 |
-| CELSYS official SDK build / CELSYS公式SDK版 | Submission to CELSYS for review and the designated distribution route. / CELSYSへの審査申請と指定された配布経路。 | Submitted to CELSYS on 2026-11-14; awaiting review and distribution guidance. / 2026年11月14日にCELSYSへ申請済み。審査と配布条件の回答待ちです。 |
+| CELSYS official SDK build / CELSYS公式SDK版 | Not distributed. / 配布していません。 | The v0.4.0 build was not selected for publication in the CLIP STUDIO plugin store. Only the unofficial SDK build is publicly distributed on GitHub. / v0.4.0はCLIP STUDIOのプラグインストアでの公開見送りとなりました。GitHubで公開配布しているのは非公式SDK版のみです。 |
 
-The editions share editing and API features. The public unofficial build uses the independently published SDPlugin interface, not CELSYS SDK files. Do not distribute the official SDK build through the unofficial repository. / 編集機能とAPI処理は共通です。公開用の非公式SDK版は、別途公開されているSDPluginインターフェースを使用し、CELSYSのSDKファイルを含めません。公式SDK版を非公式版のリポジトリへ混ぜて配布しないでください。
+The public unofficial build uses the independently published SDPlugin interface, not CELSYS SDK files. Do not distribute the official SDK build through the unofficial repository. / 公開用の非公式SDK版は、別途公開されているSDPluginインターフェースを使用し、CELSYSのSDKファイルを含めません。公式SDK版を非公式版のリポジトリへ混ぜて配布しないでください。
 
 ## Requirements / 必要な環境
 
@@ -133,20 +133,15 @@ Instructions, the layer image, the position guide, and an attached reference are
 
 `diagnostics.jsonl` records run IDs, models, HTTP status, elapsed time, dimensions, settings, and usage. It does not record keys, prompts, images, or response bodies. Memory-only storage does not protect a compromised running computer. / `diagnostics.jsonl`には実行ID、モデル、HTTP状態、時間、寸法、設定、使用量を記録し、キー、指示文、画像、応答本文は記録しません。メモリ保持は、実行中のPCそのものが侵害された場合の保護を保証しません。
 
-## 0.4.0 verified examples / 0.4.0の実動作確認
+## 0.4.0 unofficial SDK verification / 0.4.0非公式SDK版の実動作確認
 
 | Build and request / ビルドと処理 | Settings / 設定 | Elapsed / 所要時間 | Result / 結果 |
 | --- | --- | --- | --- |
-| Official SDK review build, add a cat / 公式SDK審査用版で猫を追加 | OpenAI Sunburst, max/high | 92.42 s / 秒 | Natural cat addition; exact RGBA Apply and host Undo. / 自然な猫の追加、適用とホストUndoの全RGBA一致。 |
 | Public unofficial SDK build, replace cat with rabbit / 公開用非公式SDK版で猫をウサギへ置換 | Gemini Nano Banana 2.1, 4K | 29.41 s / 秒 | One white rabbit, people and background retained; exact RGBA Apply and host Undo. / 白いウサギ1匹へ置換し、人物と背景を保持。適用とホストUndoの全RGBA一致。 |
 
-Both actual API requests completed with HTTP 200 and no compatibility fallback. The unofficial build also retained the recognized provider, model, English instruction, and candidate when switching the interface back to Japanese. Times include the normal encode/network/generation/decode/UI path and are examples, not speed guarantees. / 両方とも実APIでHTTP 200、互換フォールバックなしで完了しました。非公式版では日本語へ切り替えたあとも、接続認識、モデル、英語の指示、候補が保持されることを確認しました。時間は通常経路のエンコード、通信、生成、デコード、画面受信を含む実測例で、速度保証ではありません。
+The actual API request completed with HTTP 200 and no compatibility fallback. The unofficial build also retained the recognized provider, model, English instruction, and candidate when switching the interface back to Japanese. Times include the normal encode/network/generation/decode/UI path and are examples, not speed guarantees. / 実APIでHTTP 200、互換フォールバックなしで完了しました。非公式版では日本語へ切り替えたあとも、接続認識、モデル、英語の指示、候補が保持されることを確認しました。時間は通常経路のエンコード、通信、生成、デコード、画面受信を含む実測例で、速度保証ではありません。
 
-| OpenAI addition / OpenAIで追加 | Gemini replacement / Geminiで置き換え |
-| --- | --- |
-| ![Cat added / 猫を追加](docs/assets/040-add-openai.png) | ![White rabbit / 白いウサギへ置換](docs/assets/040-replace-gemini.png) |
-
-The official-build example is review evidence, not a downloadable official SDK edition or CELSYS approval. / 公式版の作例は審査用ビルドの検証資料であり、公式SDK版をダウンロードできることやCELSYSの承認を意味しません。
+![Gemini replacement / 白いウサギへ置換](docs/assets/040-replace-gemini.png)
 
 ## Earlier verification / 従来版の検証範囲
 
@@ -191,7 +186,7 @@ Use the top-right Manual button and choose one of the three manuals. The install
 | OpenAI setup / OpenAI API準備 | [OpenAI API Setup](docs/manuals/OpenAI-API-Setup.pdf) |
 | Gemini setup / Gemini API準備 | [Gemini API Setup](docs/manuals/Gemini-API-Setup.pdf) |
 
-The ZIP's `manuals` folder is installed under the plugin folder. The installer backs up a previous CloudImage installation under `%LOCALAPPDATA%\AIImageBridge\backups`. The two SDK variants share the plugin identity and must not be installed together. Use the unofficial edition for the ordinary public ZIP workflow. / ZIPの`manuals`フォルダーもプラグイン内へ配置します。旧CloudImageは`%LOCALAPPDATA%\AIImageBridge\backups`へ退避します。SDKの異なる2版は同じプラグイン識別子を使うため、同時に導入できません。通常の公開ZIPでは非公式版を使います。
+The ZIP's `manuals` folder is installed under the plugin folder. The installer backs up a previous CloudImage installation under `%LOCALAPPDATA%\AIImageBridge\backups`. The public ZIP contains only the unofficial SDK edition. / ZIPの`manuals`フォルダーもプラグイン内へ配置します。旧CloudImageは`%LOCALAPPDATA%\AIImageBridge\backups`へ退避します。公開ZIPに含まれるのは非公式SDK版のみです。
 
 Gemini API terms require users to be at least 18, describe professional or business developer purposes rather than consumer use, and restrict availability by region. EEA, Switzerland, and UK API clients require Paid Services. Confirm your intended use before connecting. / Gemini API規約は18歳以上を条件とし、一般消費者用途ではなく業務・事業目的の開発者向け利用を定め、地域も制限しています。EEA、スイス、英国向けAPIクライアントには有料サービス条件があります。接続前にご自身の用途が条件に合うか確認してください。 [Terms / 規約](https://ai.google.dev/gemini-api/terms)
 
