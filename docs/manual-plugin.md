@@ -4,7 +4,7 @@
 
 AI Image Bridge edits the current color raster layer in CLIP STUDIO PAINT using your own OpenAI or Gemini API account. API charges apply. No Python, ComfyUI, or local GPU model is required. / AI Image Bridgeは、ご自身のOpenAIまたはGemini APIでCLIP STUDIO PAINTの現在のカラーラスターレイヤーを編集します。API利用料金が必要です。Python、ComfyUI、ローカルGPUモデルは不要です。
 
-The ordinary public package is the unofficial SDK edition. The official SDK edition is being prepared for CELSYS review and is not an approved store release. Install only one edition. / 通常の公開パッケージは非公式SDK版です。公式SDK版はCELSYSへの審査準備中で、承認済みストア配布版ではありません。導入するのは一方だけです。
+The public package is the unofficial SDK edition only. The official SDK v0.4.0 build was not selected for publication in the CLIP STUDIO plugin store and is not distributed. / 公開パッケージは非公式SDK版のみです。公式SDK版v0.4.0はCLIP STUDIOのプラグインストアでの公開見送りとなり、配布していません。
 
 ## Install and update / 導入と更新
 
@@ -70,10 +70,6 @@ To uninstall, exit the host and run the bundled `Uninstall.cmd`. Backups and use
 The author claims no rights in your generated images. The code license is separate from output rights. API terms, applicable law, and third-party rights remain relevant. / 作者は利用者の生成画像への権利を主張しません。コードのライセンスと生成物の権利は別です。API条件、法令、第三者の権利は引き続き適用されます。
 
 Gemini API terms require users to be at least 18, describe professional or business developer purposes rather than consumer use, and restrict availability by region. EEA, Switzerland, and UK API clients require Paid Services. Confirm your intended use before connecting. / Gemini API規約は18歳以上を条件とし、一般消費者用途ではなく業務・事業目的の開発者向け利用を定め、地域も制限しています。EEA、スイス、英国向けAPIクライアントには有料サービス条件があります。接続前にご自身の用途が条件に合うか確認してください。 [Terms / 規約](https://ai.google.dev/gemini-api/terms)
-
-## Future SDK selection / 将来のSDK選択
-
-Only the unofficial SDK edition is offered in the current public package. An installer choice for the official edition is conditional on explicit CELSYS permission for GitHub distribution and equivalent host testing; it is not a current feature. There is no runtime SDK switch in the editing screen. / 現在の公開パッケージは非公式SDK版だけです。公式版を選べるインストーラーは、CELSYSによるGitHub配布の明示許可と同等のホスト実機検証を得た後の条件付き対応で、現行機能ではありません。編集画面に実行時SDK切替はありません。
 
 ## Emergency stop / 緊急停止
 
