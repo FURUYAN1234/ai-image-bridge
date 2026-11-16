@@ -202,13 +202,6 @@ Earlier accepted 0.3.x editing-path examples are shown below. / 以下は従来�
 | --- | --- |
 | ![Brown dog / 茶色い犬](docs/assets/replace-gemini.png) | ![Man removed / 男性を消去](docs/assets/remove-openai.png) |
 
-## Future SDK selection / 将来のSDK選択
-
-Only the unofficial SDK edition is offered in the current public package. An installer choice for the official edition is conditional on explicit CELSYS permission for GitHub distribution and equivalent host testing; it is not a current feature. There is no runtime SDK switch in the editing screen. / 現在の公開パッケージは非公式SDK版だけです。公式版を選べるインストーラーは、CELSYSによるGitHub配布の明示許可と同等のホスト実機検証を得た後の条件付き対応で、現行機能ではありません。編集画面に実行時SDK切替はありません。
-
-
-
-
 ## Build from source / ソースからビルド
 
 Use Visual Studio 2022 with Desktop development with C++, v143 and a Windows SDK. Reproduction was checked with MSVC 14.44.35207, Release x64. The default build uses the unofficial interface; no CELSYS SDK download is needed. / Visual Studio 2022のC++デスクトップ開発、v143、Windows SDKを使います。MSVC 14.44.35207のRelease x64で再現性を確認しました。既定は非公式インターフェースを使い、CELSYS SDKの取得は不要です。
