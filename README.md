@@ -12,6 +12,24 @@ Click an image button to open the download or guide. / 画像ボタンをクリ�
 
 [![note記事を読む / Read the note article — AI Image Bridge — Features & examples / 特徴・作例・始め方](docs/assets/note-article-button.png)](https://note.com/happy_duck780/n/n6747a089fce7)
 
+## Videos / 紹介・操作動画
+
+### Introduction — 98 seconds / 紹介編 — 98秒
+
+[![Watch the introduction / 紹介動画を見る](https://i.ytimg.com/vi/opLicBGC1ec/hqdefault.jpg)](https://youtu.be/opLicBGC1ec)
+
+See examples of adding, replacing, and removing subjects in CLIP STUDIO PAINT. Click the thumbnail to watch on YouTube. / クリスタで人物や小物を追加・置き換え・消去する作例を紹介します。画像をクリックするとYouTubeで再生できます。
+
+### How to use — 89 seconds / 操作編 — 89秒
+
+[![Watch the usage guide / 操作動画を見る](https://i.ytimg.com/vi/4huidCzYocA/hqdefault.jpg)](https://youtu.be/4huidCzYocA)
+
+Follow installation, opening the plugin, API setup, replacement instructions, result review, Apply, and PNG export. The candidate image is a previously published generation example. / 導入、プラグインの開き方、API接続、置き換えの指示、結果の確認、適用・PNG保存までを解説します。候補画像には公開済みの生成作例を使用しています。
+
+Both videos are made with Narrated Video Maker, using Japanese AI narration and AI-generated background music. / 2本ともナレーション動画メーカーで制作し、日本語のAI音声とAI生成BGMを使用しています。
+
+[Watch inside the note article / noteの記事内で再生する](https://note.com/happy_duck780/n/n6747a089fce7)
+
 ## Overview / できること
 
 ![Editing workflow / 編集の流れ](docs/assets/workflow.png)
