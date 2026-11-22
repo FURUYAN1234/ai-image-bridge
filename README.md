@@ -101,7 +101,9 @@ A ChatGPT subscription does not include OpenAI API usage. API requests can incur
 4. Start CLIP STUDIO PAINT and open `Filter → AI Image Bridge (Unofficial SDK) → AI image editor...`. / CLIP STUDIO PAINTを起動し、`フィルター → AI Image Bridge (Unofficial SDK) → AI画像編集...`を開きます。
 5. Enter an API key and use the model-retrieval button. Confirm that image models appear before generating. / APIキーを入力してモデル取得ボタンを押し、画像モデルが表示されてから生成します。
 
-For updates, save and exit the host before replacing files through the installer. Keys held by the previous process are lost on restart. To remove the plugin, exit the host and run the bundled `Uninstall.cmd`; backups and user files are retained. / 更新時も保存してホストを終了し、インストーラーでファイルを置き換えます。再起動で前回のキーは失われます。削除する場合はホストを終了し、同梱の`Uninstall.cmd`を実行します。バックアップと利用者のファイルは保持します。
+For updates, save your work and exit CLIP STUDIO PAINT. Download and fully extract the ZIP for the version you want from GitHub Releases, then double-click the `Install.cmd` included in that ZIP. It replaces the installed files for the same SDK edition without a separate uninstall. Re-enter your API key after restarting. / 更新するときは、作業を保存してCLIP STUDIO PAINTを終了します。GitHub Releasesから更新したい版のZIPをダウンロードして全体を展開し、その中の`Install.cmd`をダブルクリックします。同じSDK版なら、旧版を先にアンインストールせずに上書き更新できます。再起動後はAPIキーを入力し直してください。
+
+To remove the plugin, exit CLIP STUDIO PAINT and run the bundled `Uninstall.cmd`. Backups and user files are retained. / 削除する場合はCLIP STUDIO PAINTを終了し、同梱の`Uninstall.cmd`を実行します。バックアップと利用者のファイルは保持します。
 
 ## First edit / 最初の編集
 
