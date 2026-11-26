@@ -279,3 +279,9 @@ Previews contain the entire image within a visible frame and a 6-pixel inner gut
 The download banner and package identity are generated from `VERSION`. Run `python scripts/build_download_banner.py` before packaging; package verification rejects a stale banner. / ダウンロードバナーと配布版の番号は `VERSION` から取得します。配布前に `python scripts/build_download_banner.py` で生成し、古い版のバナーはパッケージ検査で拒否します。
 
 Runtime title, version label, log and user-agent version are generated from `VERSION` at build time. Before packaging, run `python scripts/check_distribution.py`; it rejects runtime literals, stale banners, guides and release links. / 実行時タイトル・版表示・ログ・User-Agentの版は、ビルド時に `VERSION` から生成します。配布前の `python scripts/check_distribution.py` は、版の直書きとバナー・ガイド・配布リンクの不一致を拒否します。
+
+## CLIP Drop / 習作・ベータ版
+
+クリスタの .clip を SVG・PSD・PNG に変換するWindows用の習作です。 / An experimental Windows converter for Clip Studio Paint files.
+
+- [GitHub](https://github.com/FURUYAN1234/clip-drop) · [note](https://note.com/happy_duck780/n/n8a38199a75db)
